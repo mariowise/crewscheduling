@@ -10,3 +10,7 @@ ostream & operator<<(ostream & os, const TimeInterval & U) {
     	<< "endTime: '" << U.endTime << "' }";
     return os;
 }
+
+DateTime TimeInterval::length() {
+	return endTime - initTime;
+}

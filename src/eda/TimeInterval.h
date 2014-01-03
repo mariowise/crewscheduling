@@ -12,6 +12,7 @@ public:
 	string type;
 	DateTime initTime;
 	DateTime endTime;
+	int fat;
 
 	TimeInterval() {};
 	TimeInterval(const TimeInterval & orig) {
@@ -19,11 +20,12 @@ public:
 		type = orig.type;
 		initTime = orig.initTime;
 		endTime = orig.endTime;
+		fat = orig.fat;
 	};
 	TimeInterval(int id, string type) : 
 		id(id), type(type), initTime(0, 0), endTime(0, 0) {};
-	TimeInterval(int id, string type, DateTime initTime, DateTime endTime) :
-		id(id), type(type), initTime(initTime), endTime(endTime) {};
+	TimeInterval(int id, string type, DateTime initTime, DateTime endTime, int fat) :
+		id(id), type(type), initTime(initTime), endTime(endTime), fat(fat) {};
 	TimeInterval(DateTime initTime, DateTime endTime) : 
 		id(), type(), initTime(initTime), endTime(endTime) {};
 
@@ -35,6 +37,8 @@ public:
 	}
 
 	friend ostream & operator<<(ostream &, const TimeInterval &);
+
+	DateTime length();
 };
 
 #endif

@@ -1,0 +1,90 @@
+Entidad
+	Atributo1
+	Atributo2
+
+* Ya existe una programación horaria de los vijes
+* Es necesario asignar los viajes a conductores
+
+Servicio = Asignación de un subconjunto de viajes
+			que son realizados por un único conductor
+
+
+################################################################
+
+GENERALCONFIG
+-------------
+- maxTimeDriving 	Time 		// Tiempo máximo de coducción
+- maxTimeTrip 		Time 		// Tiempo de conducción continua
+- maxTimeRest 		Time 		// Tiempo máximo de descanso
+- lunchTimeInterval TIMEINTERVAL 
+- restTimeInterval 	[ TIMEINTERVAL ] 
+
+TRAIN
+-----
+- id 		Integer
+- name 		String
+
+STATION
+-------
+- id 			Integer
+- name			String
+- restAllowed	Boolean
+
+TRIP (Entrada)
+----
+- id 			Integer
+- line 			String
+- trainId 		Reference (?)
+- initTime 		Datetime
+- initStation 	Reference
+- endTime		Datetime
+- endStation 	Reference
+- initFatTime	TIMEINTERVAL
+- endFatTime 	TIMEINTERVAL
+
+
+SERVICE
+-------
+- id 			Integer
+- tripId 		[ Reference ] 
+- time 			TIMEINTERVAL
+
+	TIMEINTERVAL (Struct) *
+	------------
+	- id 
+	- type
+	- initTime
+	- endTime
+
+DRIVER
+------
+- id 			Integer	
+- name 			String
+- type 		 	String => 'FullTime' || 'PartTime'
+- workTime 		TIMEINTERVAL
+
+
+################################################################
+
+Algoritmo genético
+==================
+
+[ Genotipo, Fenotipo, Firness, Operadores ]
+
+Genotipo
+--------
+
+
+
+
+
+################################################################
+
+HITOS
+=====
+
+1. Construir la EDA
+2. Inventar una entrada
+3. Carga de datos en la EDA
+
+4. 

@@ -22,11 +22,9 @@ GENERALCONFIG
 - maxTimeRest 		Time 		// Tiempo máximo de descanso
 - lunchTimeInterval TIMEINTERVAL 
 - restTimeInterval 	[ TIMEINTERVAL ] 
+- fatTimeInterval 	[ TIMEINTERVAL ]
 
-TRAIN
------
-- id 		Integer
-- name 		String
+
 
 STATION
 -------
@@ -38,13 +36,11 @@ TRIP (Entrada)
 ----
 - id 			Integer
 - line 			String
-- trainId 		Reference (?)
 - initTime 		Datetime
 - initStation 	Reference
 - endTime		Datetime
 - endStation 	Reference
-- initFatTime	TIMEINTERVAL
-- endFatTime 	TIMEINTERVAL
+
 
 
 SERVICE
@@ -59,6 +55,7 @@ SERVICE
 	- type
 	- initTime
 	- endTime
+	- fat
 
 DRIVER
 ------

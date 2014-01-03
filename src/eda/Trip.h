@@ -11,7 +11,7 @@ class Trip {
 public:
 	int 			id;
 	string 			line;
-	int 			trainId;
+	
 	
 	DateTime 		initTime;
 	int 			initStation;
@@ -24,8 +24,8 @@ public:
 	Trip();
 	// Trip(int id, string line) : 
 	// 	id(id), line(line) {};
-	Trip(int id, string line, int trainId, DateTime initTime, int initStation, DateTime endTime, int endStation) :
-		id(id), line(line), trainId(trainId), initTime(initTime), initStation(initStation), endTime(endTime), endStation(endStation) {};
+	Trip(int id, string line,  DateTime initTime, int initStation, DateTime endTime, int endStation) :
+		id(id), line(line),  initTime(initTime), initStation(initStation), endTime(endTime), endStation(endStation) {};
 
 	friend ostream & operator<<(ostream &, const Trip &);
 };

@@ -1,7 +1,9 @@
 #include <iostream>
 #include <eda/TimeInterval.h>
 
-std::ostream & operator<<(std::ostream & os, const TimeInterval & U) {
+using namespace std;
+
+ostream & operator<<(ostream & os, const TimeInterval & U) {
     os 	<< "{ id: '" << U.id << "', "
     	<< "type: '" << U.type << "', "
     	<< "initTime: '" << U.initTime << "', "

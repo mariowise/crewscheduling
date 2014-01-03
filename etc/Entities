@@ -9,6 +9,10 @@ Servicio = Asignación de un subconjunto de viajes
 			que son realizados por un único conductor
 
 
+
+	1000 0100 0010 0001
+	1100 0011 0000 0000
+
 ################################################################
 
 GENERALCONFIG
@@ -69,7 +73,7 @@ DRIVER
 Algoritmo genético
 ==================
 
-[ Genotipo, Fenotipo, Firness, Operadores ]
+[ Genotipo, Fenotipo, Fitness, Operadores ]
 
 Genotipo
 --------
@@ -83,8 +87,10 @@ Genotipo
 HITOS
 =====
 
-1. Construir la EDA
+1. Construir la EDA 			[ Lista ]
 2. Inventar una entrada
 3. Carga de datos en la EDA
-
-4. 
+4. GAlib
+	- Población inicial
+	- 4 funciones (Inicializar, Fitness, Cruzamiento y Mutación)
+	- AG

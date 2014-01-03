@@ -11,7 +11,7 @@ LIB_DIRS = -L $(GALIB_LIB)
 CFLAGS = -c -w
 LIBS = -lga
 
-main: build/main.o build/DateTime.o build/TimeInterval.o build/Train.o build/Station.o build/Trip.o
+main: build/main.o build/DateTime.o build/TimeInterval.o build/Train.o build/Station.o build/Trip.o build/Service.o
 	@ g++ build/*.o $(LIB_DIRS) $(LIBS) -o bin/crewshit.run
 	@ echo "Compilación terminada de forma exitosa"
 
@@ -38,6 +38,10 @@ build/Station.o: src/eda/Station.cpp
 build/Trip.o: src/eda/Trip.cpp
 	@ echo "  src/eda/Trip.cpp"
 	@ g++ $(CFLAGS) $(INC_DIRS) src/eda/Trip.cpp -o build/Trip.o
+
+build/Service.o: src/eda/Service.cpp
+	@ echo "  src/eda/Service.cpp"
+	@ g++ $(CFLAGS) $(INC_DIRS) src/eda/Service.cpp -o build/Service.o
 
 clean:
 	@ clear

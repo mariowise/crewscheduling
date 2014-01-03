@@ -1,7 +1,9 @@
 #include <iostream>
 #include <eda/Trip.h>
 
-std::ostream & operator<<(std::ostream & os, const Trip & U) {
+using namespace std;
+
+ostream & operator<<(ostream & os, const Trip & U) {
     os << "{" << endl
     	<< "  id: '" << U.id << "', " << endl
     	<< "  line: '" << U.line << "', " << endl

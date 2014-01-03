@@ -6,22 +6,19 @@
 #include <eda/Train.h>
 #include <eda/Station.h>
 #include <eda/Trip.h>
+#include <eda/Service.h>
 
 using namespace std;
 
 int main(int argc, char * argv[]) {
-	DateTime dt(1, 2);
-	TimeInterval ti(1, "Etiqueta");
-	Trip t(
-		5,
-		(string) "Linea 5",
-		1,
-		dt, 0,
-		dt, 1,
-		ti, ti
-	);
+	
+	DateTime dt(11, 30);
+	
+	TimeInterval ti(dt, dt);
 
-	cout << t << endl;
+	Service ser(3, ti);
+
+	cout << ser << endl;
 	
 	return 0;
 }

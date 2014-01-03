@@ -24,6 +24,8 @@ public:
 		id(id), type(type), initTime(0, 0), endTime(0, 0) {};
 	TimeInterval(int id, string type, DateTime initTime, DateTime endTime) :
 		id(id), type(type), initTime(initTime), endTime(endTime) {};
+	TimeInterval(DateTime initTime, DateTime endTime) : 
+		id(), type(), initTime(initTime), endTime(endTime) {};
 
 	TimeInterval & operator=(const TimeInterval & orig) {
 		id = orig.id;

@@ -18,4 +18,6 @@ extern vector<Service> services;
 
 extern map<string, DateTime> generalIntervals;
 
+extern vector<TimeInterval> fats;
+
 #endif

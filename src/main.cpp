@@ -19,17 +19,16 @@ vector<Station> stations;
 
 vector<Service> services;
 
+vector<TimeInterval> fats;
+
 map<string, DateTime> generalIntervals;
+
+
 
 int main(int argc, char * argv[]) {
 	
 
-	Reader rd;
-
-	rd.readFile("etc/EntradaPrototipe.txt");
-
-
-
+	 
 
 	return 0;
 }

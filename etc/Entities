@@ -20,11 +20,9 @@ GENERALCONFIG
 - maxTimeDriving 	Time 		// Tiempo máximo de coducción
 - maxTimeTrip 		Time 		// Tiempo de conducción continua
 - maxTimeRest 		Time 		// Tiempo máximo de descanso
-- lunchTimeInterval TIMEINTERVAL 
-- restTimeInterval 	[ TIMEINTERVAL ] 
-- fatTimeInterval 	[ TIMEINTERVAL ]
-
-
+- lunchTime						// maxima duracion de almuerzo 
+- numRests 						// Numero de descansos por sevicio
+- fatTimeInterval 				[ TIMEINTERVAL ] 
 
 STATION
 -------
@@ -41,8 +39,6 @@ TRIP (Entrada)
 - endTime		Datetime
 - endStation 	Reference
 
-
-
 SERVICE
 -------
 - id 			Integer
@@ -57,12 +53,6 @@ SERVICE
 	- endTime
 	- fat
 
-DRIVER
-------
-- id 			Integer	
-- name 			String
-- type 		 	String => 'FullTime' || 'PartTime'
-- workTime 		TIMEINTERVAL
 
 
 ################################################################

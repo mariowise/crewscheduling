@@ -1,6 +1,9 @@
 #ifndef DATETIME_H_
 #define DATETIME_H_
 
+#include <string>
+#include <cstdlib>
+
 using namespace std;
 
 class DateTime {
@@ -9,6 +12,14 @@ public:
 	int m;
 
 	DateTime() {};
+	DateTime(string sf) {
+		int i = sf.find(":", 0);
+		string _h = sf.substr(0, sf.length() - i-1);
+		string _m = sf.substr(i+1, sf.length() - i);
+
+		h = atoi(_h.c_str());
+		m = atoi(_m.c_str());
+	};
 	DateTime(const DateTime & orig) {
 		h = orig.h;
 		m = orig.m;

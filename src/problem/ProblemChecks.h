@@ -5,8 +5,6 @@ using namespace std;
 
 class ProblemChecks {
 public:
-	
-
 	ProblemChecks();
 };
 

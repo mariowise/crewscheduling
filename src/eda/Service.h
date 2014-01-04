@@ -12,20 +12,22 @@ class Service {
 public:
 	int id;
 	vector<int> tripList;
-	TimeInterval time;
+	TimeInterval lunchTime;
 
 	Service();
 	Service(const Service & orig) {
 		id = orig.id;
 		tripList = orig.tripList;
-		time = orig.time;
+		lunchTime = orig.lunchTime;
 	}
-	Service(int id, vector<int> tripList, TimeInterval time) :
-		id(id), tripList(tripList), time(time) {};
-	Service(int id, TimeInterval time) :
-	 	id(id), time(time), tripList() {};
+	Service(int id, vector<int> tripList, TimeInterval lunchTime) :
+		id(id), tripList(tripList), lunchTime(lunchTime) {};
+	Service(int id, TimeInterval lunchTime) :
+	 	id(id), lunchTime(lunchTime), tripList() {};
 
 	friend ostream & operator<<(ostream &, const Service &);
+
+	DateTime length();
 };
 
 #endif

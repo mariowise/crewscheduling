@@ -20,5 +20,9 @@ vector<Service> services;
 
 int main(int argc, char * argv[]) {
 	
+	DateTime dt("12:50");
+
+	cout << dt << endl;
+
 	return 0;
 }

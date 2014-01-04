@@ -1,30 +1,30 @@
 #include <iostream>
 #include <fstream>
-#include <problem/Reader.h>
+#include <string>
 
+#include <problem/Reader.h>
 
 #include <Common.h>
 
 using namespace std;
 
-//Confirme si el archivo existe
-//bool Reader::isValid(string path) {
+ // Lee la entrada y carga los datos correspondientes
+ void Reader::readFile(const char * filename){
 
-	//return ifstream(path);
+ 	ifstream f(filename, ifstream::in);
+ 	string line;
+
+
+ 	if(!f){
+ 		cout << "Error en archivo" << endl;
+ 		exit(0);
+ 	}
+
+ 	while(!f.eof()){
+ 		getline(f, line);
+ 		cout << line << endl;
+ 	}
  	
- //}
-
- //Lee la entrada y carga los datos correspondientes
- //void Reader::readFile(string path){
-
- //	if(!isValid(path)){
-
-// 		cout << "Error" << endl;
- //		exit(0);
- //	}
- //	else{
- //		cout << "Hola mundo" << endl;
- //	}
-
-
- //}
+ 	
+ 	
+}

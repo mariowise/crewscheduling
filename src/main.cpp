@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 
 #include <eda/DateTime.h>
 #include <eda/TimeInterval.h>
@@ -18,13 +19,14 @@ vector<Station> stations;
 
 vector<Service> services;
 
+map<string, DateTime> generalIntervals;
 
 int main(int argc, char * argv[]) {
 	
 
-	//Reader rd;
+	Reader rd;
 
-	//rd.readFile("/home/arthen/Proyectos/crewscheduling/etc/EntradaPrototipe.txt");
+	rd.readFile("etc/EntradaPrototipe.txt");
 
 
 

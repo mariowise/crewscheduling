@@ -14,3 +14,7 @@ ostream & operator<<(ostream & os, const Trip & U) {
     	<< "}" << endl;
 	return os;
 }
+
+DateTime Trip::length() {
+    return endTime - initTime;
+}

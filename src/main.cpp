@@ -21,13 +21,9 @@ vector<Service> services;
 
 int main(int argc, char * argv[]) {
 	
-
-	//Reader rd;
-
-	//rd.readFile("/home/arthen/Proyectos/crewscheduling/etc/EntradaPrototipe.txt");
-
-
-
+	DateTime d1("15:00");
+	DateTime d2("13:00");
+	cout << (d1 > d2) << endl;
 
 	return 0;
 }

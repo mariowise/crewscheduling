@@ -1,0 +1,43 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <map>
+
+#include <eda/DateTime.h>
+#include <eda/TimeInterval.h>
+#include <eda/Station.h>
+#include <eda/Trip.h>
+#include <eda/Service.h>
+
+#include <problem/Reader.h>
+
+using namespace std;
+
+vector<Trip> trips;
+
+vector<Station> stations;
+
+vector<Service> services;
+
+<<<<<<< HEAD
+vector<TimeInterval> fats;
+
+map<string, DateTime> generalIntervals;
+
+
+
+int main(int argc, char * argv[]) {
+	
+
+	 
+=======
+
+int main(int argc, char * argv[]) {
+	
+	DateTime d1("15:00");
+	DateTime d2("13:00");
+	cout << (d1 > d2) << endl;
+>>>>>>> 082ed42d535d5bf4adaabab825539a553dbb7125
+
+	return 0;
+}

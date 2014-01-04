@@ -22,9 +22,9 @@ vector<Service> services;
 int main(int argc, char * argv[]) {
 	
 
-	Reader rd;
+	//Reader rd;
 
-	rd.readFile("/home/arthen/Proyectos/crewscheduling/etc/EntradaPrototipe.txt");
+	//rd.readFile("/home/arthen/Proyectos/crewscheduling/etc/EntradaPrototipe.txt");
 
 
 

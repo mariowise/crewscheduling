@@ -3,6 +3,7 @@
 
 #include <string>
 
+using namespace std;
 class Reader {
 public:
 	string path;
@@ -10,8 +11,8 @@ public:
 	Reader();
 	Reader(string path) : path(path) {};
 
-	bool isValid(string path);
-	void readFile(string path);	
+	//bool isValid(string path);
+	//void readFile(string path);	
 };
 
 #endif

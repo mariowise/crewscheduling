@@ -2,29 +2,29 @@
 #include <fstream>
 #include <problem/Reader.h>
 
-#include <eda/Service.h>
+
 #include <Common.h>
 
 using namespace std;
 
 //Confirme si el archivo existe
-bool Reader::isValid(string path) {
+//bool Reader::isValid(string path) {
 
-	return std::ifstream(path);
+	//return ifstream(path);
  	
- }
+ //}
 
  //Lee la entrada y carga los datos correspondientes
- void Reader::readFile(string path){
+ //void Reader::readFile(string path){
 
- 	if(!isValid(path)){
+ //	if(!isValid(path)){
 
- 		cout << "Error" << endl;
- 		exit(0);
- 	}
- 	else{
- 		cout << "Hola mundo" << endl;
- 	}
+// 		cout << "Error" << endl;
+ //		exit(0);
+ //	}
+ //	else{
+ //		cout << "Hola mundo" << endl;
+ //	}
 
 
- }
+ //}

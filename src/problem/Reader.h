@@ -10,7 +10,8 @@ public:
 	Reader();
 	Reader(string path) : path(path) {};
 
-	bool isValid();	
+	bool isValid(string path);
+	void readFile(string path);	
 };
 
 #endif

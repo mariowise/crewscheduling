@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <problem/Reader.h>
 
 #include <eda/Service.h>
@@ -6,17 +7,24 @@
 
 using namespace std;
 
-// bool Reader::isValid() {
+//Confirme si el archivo existe
+bool Reader::isValid(string path) {
 
-// 	Service x;
+	return std::ifstream(path);
+ 	
+ }
 
-// 	for
+ //Lee la entrada y carga los datos correspondientes
+ void Reader::readFile(string path){
 
-// 	x(1, 3, 5);
-// 	services.push_back(x);
+ 	if(!isValid(path)){
 
-// 	x(1, 2, 3, 4);
-// 	services.push_back(x);
+ 		cout << "Error" << endl;
+ 		exit(0);
+ 	}
+ 	else{
+ 		cout << "Hola mundo" << endl;
+ 	}
 
-// 	return true;
-// }
+
+ }

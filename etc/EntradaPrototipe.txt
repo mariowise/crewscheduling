@@ -1,0 +1,20 @@
+GENERAL
+maxTimeDriving	maxTimeTrip	maxTimeRest	lunchTime	numRests
+FAT
+id1	type1	initTime1	endTime1	fat1
+id2	type2	initTime2	endTime2	fat2
+id3	type3	initTime3	endTime3	fat3
+STATION
+id1	name1	0
+id2	name2	1
+id3	name3	0
+id4	name4	1
+id5	name5	1
+TRIP
+id1 	line1	initTime1 	initStation1	endTime1 	endStation1
+id2 	line2	initTime2 	initStation2	endTime2 	endStation2
+id3 	line3	initTime3 	initStation3	endTime3 	endStation3
+id4 	line4	initTime4 	initStation4	endTime4 	endStation4
+id5 	line5	initTime5 	initStation5	endTime5 	endStation5
+id6 	line6	initTime6 	initStation6	endTime6 	endStation6
+id7 	line7	initTime7 	initStation7	endTime7 	endStation7

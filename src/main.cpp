@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 
 #include <eda/DateTime.h>
 #include <eda/TimeInterval.h>

@@ -1,5 +1,5 @@
 GENERAL
-maxTimeDriving	maxTimeTrip	maxTimeRest	lunchTime
+maxTimeDriving	maxTimeTrip	maxTimeRest	lunchTime	numRests
 FAT
 id1	type1	initTime1	endTime1	fat1
 id2	type2	initTime2	endTime2	fat2

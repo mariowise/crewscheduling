@@ -28,7 +28,9 @@ map<string, DateTime> generalIntervals;
 int main(int argc, char * argv[]) {
 	
 
-	 
+	 Reader rd;
+	 rd.readFile("etc/EntradaPrototipe.txt");
+	 rd.testRead();
 
 	return 0;
 }

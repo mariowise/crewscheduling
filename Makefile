@@ -52,5 +52,6 @@ clean:
 run:
 	@ clear
 	@ ./bin/crewshit.run
+	
 
 me: clean main run	

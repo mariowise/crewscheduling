@@ -53,7 +53,7 @@ public:
     friend bool operator>= (DateTime &d1, DateTime &d2);
 
 
-//private: //<!> D: PROBLEMA
+
 	int toSeg() {
 		return 60 * ( m  + h * 60);
 	}	

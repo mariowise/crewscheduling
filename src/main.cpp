@@ -2,12 +2,14 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <stdlib.h>
 
 #include <eda/DateTime.h>
 #include <eda/TimeInterval.h>
 #include <eda/Station.h>
 #include <eda/Trip.h>
 #include <eda/Service.h>
+#include <problem/Phenotype.h>
 
 #include <problem/Reader.h>
 
@@ -29,23 +31,42 @@ int main(int argc, char * argv[]) {
 
 	 Reader rd;
 	 rd.readFile("etc/EntradaPrototipe.txt");
-	 rd.testRead();
 
-	 Service serv;
-	 serv.id = 1;
-	 serv.tripList.push_back(0);
-	 serv.tripList.push_back(1);
-	 serv.tripList.push_back(3);
-	 serv.tripList.push_back(4);
-	 serv.lunchAssignment();
-	 cout << serv.lunchTime << endl;
-	 
-	 serv.restAssignment();
+	 vector<int> geno;
 
-	 for (int i = 0; i < serv.restList.size(); i++) {
-	 	cout << serv.restList[i] << endl;
+	 srand(time(NULL));
+
+	 for(int j = 0; j < trips.size()*trips.size(); j++){
+	 	geno.push_back(rand()%2);
 	 }
 
-	 cout << serv.remainingRest << endl;
+	 Phenotype p;
+
+	 p.createServices(geno);
+
+	 //rd.testRead();
+
+	 // Service serv;
+	 // serv.id = 1;
+	 // serv.tripList.push_back(0);
+	 // serv.tripList.push_back(1);
+	 // serv.tripList.push_back(3);
+	 // serv.tripList.push_back(4);l
+	 // serv.lunchAssignment();
+	 // cout << serv.lunchTime << endl;
+	 
+	 // serv.restAssignment();
+
+	 // for (int i = 0; i < serv.restList.size(); i++) {
+	 // 	cout << serv.restList[i] << endl;
+	 // }
+
+	 // cout << serv.remainingRest << endl;
+	 cout << p.services.size() << endl;
+	 for(int i=0; i < p.services.size(); i++){
+	 
+	 	cout<<p.services.at(i)<<endl;
+	 }
+	 
 	return 0;
 }

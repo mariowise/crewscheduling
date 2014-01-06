@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 #include <map>
-#include <stdlib.h>
 
 #include <eda/DateTime.h>
 #include <eda/TimeInterval.h>
@@ -11,7 +10,6 @@
 #include <eda/Service.h>
 
 #include <problem/Reader.h>
-#include <problem/Phenotype.h>
 
 using namespace std;
 
@@ -27,26 +25,27 @@ map<string, DateTime> generalIntervals;
 
 
 
-int main(int argc, char * argv[]) {
-	
+int main(int argc, char * argv[]) {	
 
-	  Reader rd;
-	  rd.readFile("etc/EntradaPrototipe.txt");
-	 // rd.testRead();
+	 Reader rd;
+	 rd.readFile("etc/EntradaPrototipe.txt");
+	 rd.testRead();
 
+	 Service serv;
+	 serv.id = 1;
+	 serv.tripList.push_back(0);
+	 serv.tripList.push_back(1);
+	 serv.tripList.push_back(3);
+	 serv.tripList.push_back(4);
+	 serv.lunchAssignment();
+	 cout << serv.lunchTime << endl;
+	 
+	 serv.restAssignment();
 
-	vector<int> geno;
-	vector<Service> s;
+	 for (int i = 0; i < serv.restList.size(); i++) {
+	 	cout << serv.restList[i] << endl;
+	 }
 
-	srand(time(NULL));
-
-	for(int i = 0; i < trips.size() * trips.size(); i++){
-		geno.push_back(rand()%2);
-	}
-	
-	Phenotype p;
-	
-	p.createServices(geno, s);
-	
+	 cout << serv.remainingRest << endl;
 	return 0;
 }

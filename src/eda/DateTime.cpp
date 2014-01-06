@@ -23,3 +23,9 @@ bool operator< (DateTime &d1, DateTime &d2) {
 bool operator>= (DateTime &d1, DateTime &d2) {
 	return d1.toSeg() >= d2.toSeg();
 }
+
+int DateTime::setZero() {
+	h = 00;
+	m = 00;
+	return 0;
+}

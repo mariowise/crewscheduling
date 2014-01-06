@@ -113,7 +113,10 @@ int Service::lunchAssignment() {
 	// En caso de no hallar un intervalo para el almuerzo se establece al servicio
 	// como hambriento.
 	if (lunchAssigned == false) {
-		lunchTime.type = "hungry"; 
+		lunchTime.type = "hungry";
+		lunchTime.id = -1;
+		lunchTime.initTime = (DateTime)("-1:-1");
+		lunchTime.endTime = (DateTime)("-1:-1"); 
 	}
 	return 0;
 }

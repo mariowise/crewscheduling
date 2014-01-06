@@ -14,7 +14,7 @@ public:
 	vector<int> tripList;
 	TimeInterval lunchTime;
 
-	Service();
+	Service() {};
 	Service(const Service & orig) {
 		id = orig.id;
 		tripList = orig.tripList;

@@ -1,6 +1,6 @@
 #
 # Crew Scheduling problem
-# 	by mariowise
+# 	by mariowise, arthen and lothar
 
 GALIB_INC = /usr/local/include/ga
 GALIB_LIB = /usr/local/lib
@@ -11,7 +11,7 @@ LIB_DIRS = -L $(GALIB_LIB)
 CFLAGS = -c -w
 LIBS = -lga
 
-main: build/main.o build/DateTime.o build/TimeInterval.o build/Station.o build/Trip.o build/Service.o build/Reader.o build/Phenotype.o
+main: build/main.o build/DateTime.o build/TimeInterval.o build/Station.o build/Trip.o build/Service.o build/Reader.o build/Phenotype.o build/Genotype.o
 	@ g++ build/*.o $(LIB_DIRS) $(LIBS) -o bin/crewshit.run
 	@ echo "Compilación terminada de forma exitosa"
 
@@ -46,6 +46,10 @@ build/Reader.o: src/problem/Reader.cpp
 build/Phenotype.o: src/problem/Phenotype.cpp
 	@ echo "  src/problem/Phenotype.cpp"
 	@ g++ $(CFLAGS) $(INC_DIRS) src/problem/Phenotype.cpp -o build/Phenotype.o
+
+build/Genotype.o: src/gai/Genotype.cpp
+	@ echo "  src/gai/Genotype.cpp"
+	@ g++ $(CFLAGS) $(INC_DIRS) src/gai/Genotype.cpp -o build/Genotype.o
 
 clean:
 	@ clear

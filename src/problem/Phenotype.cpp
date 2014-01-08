@@ -49,9 +49,7 @@ float Phenotype::fitness(){
 
 	float finalFitness = 0.0f;
 
-	finalFitness += pCh.uniqueTrip(this);
-	finalFitness += pCh.uniqueTrip(this);
-	finalFitness += pCh.uniqueTrip(this);
+	finalFitness += pCh.uniqueTrip(*this);
 
-	return finalFiteness;
+	return finalFitness;
 }

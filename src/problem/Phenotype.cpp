@@ -21,15 +21,13 @@ void Phenotype::createServices(string genotype){
 	int j = 0;
 	int tripId;
 	
-	for(i=0; i < numTrips; i++){
+	for(i = 0; i < numTrips; i++) {
+		Service s;
+		s.id = i;
+		for(j = numTrips * i; j < numTrips * (i+1); j++) {
+			if(genotype[j]=='1') {
 
-			Service s;
-			s.id = i;
-		for(j = numTrips*i; j < numTrips*(i+1); j++){
-
-			if(genotype[j]=='1'){
-
-				tripId = (j%numTrips);
+				tripId = (j % numTrips);
 				s.tripList.push_back(tripId);
 
 			}
@@ -41,17 +39,27 @@ void Phenotype::createServices(string genotype){
 		services.push_back(s);
 
 	}
+	cout << "Phenotype creado de forma exitosa" << endl;
 }
 
 float Phenotype::fitness(){
-
+	cout << "Calculando fitness" << endl;
 	ProblemChecks pCh;
 
 	float finalFitness = 0.0f;
+	float aux = 0.0f;
 
-	finalFitness += pCh.uniqueTrip(*this);
-	finalFitness += pCh.validRest(*this);
-	finalFitness += pCh.validLunch(*this);
+	aux = pCh.uniqueTrip(*this);
+	cout << "  uniqueTrip = " << aux << endl;
+	finalFitness += aux;
+
+	aux = pCh.validRest(*this);
+	cout << "  validRest = " << aux << endl;
+	finalFitness += aux;
+
+	aux = pCh.validLunch(*this);
+	cout << "  validLunch = " << aux << endl;
+	finalFitness += aux;
 	
 	return finalFitness;
 }

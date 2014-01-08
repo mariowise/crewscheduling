@@ -2,6 +2,7 @@
 #include <sstream>
 #include <ctime>
 #include <string>
+#include <unistd.h>
 
 #include <ga/GA1DBinStrGenome.h>
 #include <ga/GASimpleGA.h>
@@ -14,6 +15,8 @@
 using namespace std;
 
 float Genotype::evaluator(GAGenome & dude) {
+	sleep(1);
+	cout << endl << "Trips.size() = " << trips.size() << endl << endl;
 	GA1DBinaryStringGenome & realDude = ((GA1DBinaryStringGenome &) dude);
 	string genome;
 	ostringstream os;
@@ -47,7 +50,7 @@ void Genotype::main() {
 	float pCross = 0.9;
 
 	// Se crea el objeto genoma
-	cout << "Creando prototipo para Genoma" << endl;
+	cout << "Creando prototipo para Genoma (" << genotypeLength << ")" << endl;
 	GA1DBinaryStringGenome genoma(genotypeLength, Genotype::evaluator);
 
 	// Lanzamiento del algoritmo genético

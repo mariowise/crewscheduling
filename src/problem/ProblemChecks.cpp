@@ -96,3 +96,22 @@ float ProblemChecks::validRest(Phenotype & dude) {
 
 	return fitness;
 }
+
+float ProblemChecks::validLunch(Phenotype & dude){
+
+	DateTime tarde("17:00");
+	float fitness = 0;
+	int idTrip;
+
+	for(int i = 0; i < dude.services.size(); i++){
+
+		idTrip =dude.services.at(i).tripList.at(0); 
+
+		if(trips.at(idTrip).initTime.h <= tarde.h && dude.services.at(i).lunchTime.type.compare("hungry")==0){
+			fitness += 1;
+			dude.services.at(i).partialFitness += 1;
+		}
+	}
+
+	return fitness;
+}

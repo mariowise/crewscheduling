@@ -39,8 +39,8 @@ float ProblemChecks::uniqueTrip(Phenotype & dude) {
 
 					if (tripI.initTime.toSeg() == tripL.initTime.toSeg()) {
 						valid = false;
-						dude.services.at(i).partialFitness += -5000;
-						fitness += -5000;
+						dude.services.at(i).partialFitness += 5000;
+						fitness += 5000;
 					}
 				}
 			}
@@ -104,8 +104,9 @@ float ProblemChecks::validLunch(Phenotype & dude){
 	float fitness = 0;
 	int idTrip;
 
-	for(int i = 0; i < dude.services.size(); i++){
 
+	for(int i = 0; i < dude.services.size(); i++){
+		if(dude.services.at(i).tripList.size() > 0){
 		idTrip =dude.services.at(i).tripList.at(0); 
 
 		if(trips.at(idTrip).initTime.h <= tarde.h && dude.services.at(i).lunchTime.type.compare("hungry")==0){
@@ -113,6 +114,6 @@ float ProblemChecks::validLunch(Phenotype & dude){
 			dude.services.at(i).partialFitness += 1;
 		}
 	}
-
+	}
 	return fitness;
 }

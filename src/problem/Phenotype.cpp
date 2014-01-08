@@ -43,12 +43,27 @@ void Phenotype::createServices(string genotype){
 }
 
 float Phenotype::fitness(){
+
+	int numServices = 0;
+
+	for(int i = 0; i < services.size(); i++){
+
+		if(services.at(i).tripList.size() > 0){
+			numServices += 1;
+		}
+
+	}
+
 	cout << "Calculando fitness" << endl;
 	ProblemChecks pCh;
 
 	float finalFitness = 0.0f;
 	float aux = 0.0f;
 
+
+	cout << " Servicios válidos base = " << numServices << endl;	
+	finalFitness += numServices;
+	
 	aux = pCh.uniqueTrip(*this);
 	cout << "  uniqueTrip = " << aux << endl;
 	finalFitness += aux;
@@ -61,7 +76,7 @@ float Phenotype::fitness(){
 	cout << "  validLunch = " << aux << endl;
 	finalFitness += aux;
 	
-	return finalFitness;
+	return 1 / finalFitness;
 }
 
 std::ostream & operator<<(std::ostream & os, const Phenotype & phenom) {

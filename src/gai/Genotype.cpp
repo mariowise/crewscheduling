@@ -15,7 +15,7 @@
 using namespace std;
 
 float Genotype::evaluator(GAGenome & dude) {
-	sleep(1);
+	// sleep(1);
 	cout << endl << "Trips.size() = " << trips.size() << endl << endl;
 	GA1DBinaryStringGenome & realDude = ((GA1DBinaryStringGenome &) dude);
 	string genome;
@@ -26,7 +26,6 @@ float Genotype::evaluator(GAGenome & dude) {
 		genome += os.str();
 		os.clear();
 	}
-
 
 	Phenotype p;
 	p.createServices(genome);

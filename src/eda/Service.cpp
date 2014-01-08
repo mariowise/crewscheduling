@@ -54,7 +54,8 @@ int Service::restAssignment() {
 			rest.endTime =  end.initTime - endFat;
 
 			if (rest.length().toSeg() >= minRest.toSeg()) {
-				rest.type = "fullRest";	
+				rest.type = "fullRest";
+				drivenTime.setZero(); //Dado q rest>15 se reinicia el contador de tiempo continuo.	
 			}
 
 			else rest.type = "partialRest";
@@ -62,7 +63,7 @@ int Service::restAssignment() {
 			delta = rest.length();
 			remainingRest = remainingRest - delta;
 			restList.push_back(rest);
-			drivenTime.setZero();			
+			//drivenTime.setZero();		El tiempo de conducción solo se reinicia cuando rest>15	
 		}
 
 		else if (init.endTime.toSeg() + init.posFat().toSeg() == lunchTime.initTime.toSeg()) {

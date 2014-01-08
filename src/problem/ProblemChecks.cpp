@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <cstring>
+
 
 #include <eda/TimeInterval.h>
 #include <eda/Trip.h>
@@ -62,4 +64,20 @@ float ProblemChecks::validRest(Phenotype dude) {
 
 	}
 
+}
+
+float ProblemChecks::validLunch(Phenotype dude){
+
+	DateTime tarde("17:00");
+	float fitness = 0;
+
+	for(int i = 0; i < dude.services.size(); i++){
+
+		if(dude.services.at(i).tripList.at(0).initTime.h <= tarde.h && dude.services.at(i).lunchTime.type.compare("hungry")==0){
+			fitness += -1;
+			dude.services.at(i).partialFitness += -1;
+		}
+	}
+
+	return fitness;
 }

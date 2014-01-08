@@ -36,6 +36,7 @@ void Phenotype::createServices(string genotype){
 		s.lunchAssignment();
 		s.restAssignment();
 		s.restCorrection();
+		s.partialFitness = 0;
 		services.push_back(s);
 
 	}

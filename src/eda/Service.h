@@ -7,8 +7,6 @@
 #include <eda/TimeInterval.h>
 #include <eda/DateTime.h>
 
-using namespace std;
-
 class Service {
 public:
 	int id;
@@ -29,7 +27,7 @@ public:
 	Service(int id, TimeInterval lunchTime) :
 	 	id(id), lunchTime(lunchTime), tripList() {};
 
-	friend ostream & operator<<(ostream &, const Service &);
+	friend std::ostream & operator<<(std::ostream &, const Service &);
 
 	DateTime length();
 	// SIEMPRE SE DEBE ASIGNAR EL ALMUERZO ANTES QUE EL DESCANSO

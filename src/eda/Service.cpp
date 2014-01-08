@@ -12,7 +12,19 @@ using namespace std;
 
 ostream & operator<<(ostream & os, const Service & U) {
 	os 	<< "{ id: '" << U.id << "', "
-    	<< "tripList: '" << U.tripList.size() << "', "
+		<< "partialFitness: " << U.partialFitness << ", "
+		<< "remainingRest: " << U.remainingRest << ", "
+    	<< "tripList: [";
+
+    for(int i = 0; i < U.tripList.size(); i++)
+    	os << U.tripList.at(i) << (i != U.tripList.size() -1) ? ", " : "";
+    
+    os 	<< "], "
+		<< "restList: [";
+	for(int i = 0; i < U.restList.size(); i++)
+		os << U.restList.at(i) << (i != U.restList.size() -1) ? ", " : "";
+	
+	os 	<< "], "
     	<< "time: " << U.lunchTime << " }";
     return os;
 }

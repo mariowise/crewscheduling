@@ -14,7 +14,7 @@ using namespace std;
 
 // Revisa la validez del individuo según los viajes en sus servicios sean únicos 
 // o no. 
-float ProblemChecks::uniqueTrip(Phenotype dude) {
+float ProblemChecks::uniqueTrip(Phenotype & dude) {
 	bool valid = true;
 	float fitness = 0;
 
@@ -46,20 +46,51 @@ float ProblemChecks::uniqueTrip(Phenotype dude) {
 	return fitness;
 } 
 
-float ProblemChecks::validRest(Phenotype dude) {
+float ProblemChecks::validRest(Phenotype & dude) {
 
 	float fitness = 0;
+	DateTime zero("00:00");
 
 	// Para cada servicio en el individuo.
 	for (int i = 0; i < dude.services.size(); i++) {
+		DateTime initFat, endFat, delta;
+		DateTime totalLazyTime("00:00");
+		TimeInterval rest;
 
-		if (dude.services.at(i).remainingRest < (DateTime)(00:00)) {			
+		if (dude.services.at(i).remainingRest < zero) {			
 			
-			partialFitness += -1;
-			fitness += -1;
+			dude.services.at(i).partialFitness += 1;
+			fitness += 1;
 		}
 
+		else {
+			// Para cada viaje j del servicio i
+			for (int j = 0; j + 1 < dude.services.at(i).tripList.size(); j++) {
 
+				Trip init = trips.at(dude.services.at(i).tripList.at(j));
+				Trip end = trips.at(dude.services.at(i).tripList.at(j+1));
+
+				initFat = init.posFat();
+				endFat = end.preFat();
+
+				// Si el intervalo no tiene un almuerzo
+				if (init.initTime.toSeg() + initFat.toSeg() != dude.services.at(i).lunchTime.initTime.toSeg()) {
+					
+					// Sumo el intervalo al tiempo ocioso total.
+					rest.initTime = init.endTime + endFat;
+					rest.endTime = end.initTime - endFat;
+					delta = rest.length();
+					totalLazyTime = totalLazyTime + delta;
+				}
+			}
+		}
+
+		// Si el tiempo ocioso total es mayor al máximo del descanso, se penaliza al servicio.
+		if (totalLazyTime > generalIntervals.at("maxTimeRest")) {
+			dude.services.at(i).partialFitness += 1;
+			fitness += 1;
+		} 
 	}
-
+	return fitness;
 }
+

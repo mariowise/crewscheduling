@@ -31,8 +31,9 @@ public:
 
 	DateTime length();
 	// SIEMPRE SE DEBE ASIGNAR EL ALMUERZO ANTES QUE EL DESCANSO
-	int restAssignment(); 	//Asignación del descanso en restlist 
-	int lunchAssignment(); 	//Asignción del almuerzp en lunchTime  
+	int restAssignment(); 	//Asignación del descanso en restlist por conducción continua. 
+	int lunchAssignment(); 	//Asignción del almuerzp en lunchTime.
+	void restCorrection();	//Asignación del tiempo de descanso restante.   
 };
 
 #endif

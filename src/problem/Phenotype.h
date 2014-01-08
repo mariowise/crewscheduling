@@ -16,7 +16,7 @@ public:
 
 	Phenotype() {};
 	
-	void createServices(vector<int> genotype);	
+	void createServices(string genotype);	
 
 	
 };

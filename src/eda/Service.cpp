@@ -133,3 +133,38 @@ int Service::lunchAssignment() {
 	}
 	return 0;
 }
+
+// Asigna descansos a intervalos de ocioso mientras quede tiempo por asignar. 
+void Service::restCorrection() {
+	bool restDetected;
+	TimeInterval rest;
+	DateTime initFat, endFat, delta;
+
+	for (int i = 0; (i+1 < tripList.size()) && (remainingRest.toSeg() > 0); i++){
+
+		restDetected = false;
+
+		Trip init = trips.at( tripList.at( i ) );
+		Trip end = trips.at( tripList.at( i+1 ) );
+
+		for(int j = 0; j < restList.size() && restDetected == false; j++) {
+
+			if(((init.endTime.toSeg() + init.posFat().toSeg()) != restList.at(j).initTime.toSeg()) && 
+				((init.endTime.toSeg() + init.posFat().toSeg()) != lunchTime.initTime.toSeg())) {
+
+				initFat = init.posFat();
+				endFat = end.preFat();
+
+				restDetected = true;
+				rest.id = 300+i;
+				rest.type = "partialRest";
+				rest.initTime = init.endTime + initFat;
+				rest.endTime = end.initTime - endFat;
+
+				delta = rest.length();
+				remainingRest = remainingRest - delta;
+				restList.push_back(rest);
+			}
+		} 		 
+	}	
+}

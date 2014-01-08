@@ -32,9 +32,9 @@ public:
 	friend ostream & operator<<(ostream &, const Service &);
 
 	DateTime length();
-	// SIEMPRE SE DEBE ASIGNAR EL ALMUERZO ANTES QUE EL DESCANSO
-	int restAssignment(); 	//Asignación del descanso en restlist por conducción continua. 
-	int lunchAssignment(); 	//Asignción del almuerzp en lunchTime.
+	// SIEMPRE SE DEBE ASIGNAR EL ALMUERZO ANTES QUE EL DESCANSO Y CORRECCION DESPUES DE DESCANSO
+	void restAssignment(); 	//Asignación del descanso en restlist por conducción continua. 
+	void lunchAssignment(); 	//Asignción del almuerzp en lunchTime.
 	void restCorrection();	//Asignación del tiempo de descanso restante.   
 };
 

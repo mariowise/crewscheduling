@@ -30,7 +30,7 @@ DateTime Service::length() {
 
 // Asigna descansos cuando se ha superado el tiempo de conducción y los resta del tiempo de 
 // descanso máximo.	
-int Service::restAssignment() {
+void Service::restAssignment() {
 	DateTime drivenTime("00:00");
 	DateTime minRest("00:15");
 	DateTime delta, initFat, endFat; //Holguras de inicio y fin de intervalo.
@@ -75,13 +75,12 @@ int Service::restAssignment() {
 			delta = end.initTime - init.initTime;
 			drivenTime = drivenTime + delta;
 		}
-	}
-	return 0;			 
+	}			 
 }
 
 // Asigna el almuerzo en el primer intervalo de tiempo ocioso que sea igual
 // o mayor al tiempo de almuerzo máximo - se sugiere renombrarlo como mínimo.
-int Service::lunchAssignment() {
+void Service::lunchAssignment() {
 	TimeInterval lunchInterval;
 	bool lunchAssigned = false;	//Se asignó el horario de almuerzo?
 	DateTime maxLunchTime = generalIntervals.at("maxLunchTime");
@@ -119,7 +118,6 @@ int Service::lunchAssignment() {
 		lunchTime.initTime = (DateTime)("-1:-1");
 		lunchTime.endTime = (DateTime)("-1:-1"); 
 	}
-	return 0;
 }
 
 // Asigna descansos a intervalos de ocioso mientras quede tiempo por asignar. 

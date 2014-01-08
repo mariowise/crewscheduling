@@ -12,6 +12,8 @@
 
 using namespace std;
 
+// Revisa la validez del individuo según los viajes en sus servicios sean únicos 
+// o no. 
 float ProblemChecks::uniqueTrip(Phenotype dude) {
 	bool valid = true;
 	float fitness = 0;
@@ -35,7 +37,7 @@ float ProblemChecks::uniqueTrip(Phenotype dude) {
 					if (tripI.initTime.toSeg() == tripL.initTime.toSeg()) {
 						valid = false;
 						dude.services.at(i).partialFitness += -5000;
-						fitness += (float)(-5000);
+						fitness += -5000;
 					}
 				}
 			}
@@ -43,3 +45,21 @@ float ProblemChecks::uniqueTrip(Phenotype dude) {
 	}
 	return fitness;
 } 
+
+float ProblemChecks::validRest(Phenotype dude) {
+
+	float fitness = 0;
+
+	// Para cada servicio en el individuo.
+	for (int i = 0; i < dude.services.size(); i++) {
+
+		if (dude.services.at(i).remainingRest < (DateTime)(00:00)) {			
+			
+			partialFitness += -1;
+			fitness += -1;
+		}
+
+
+	}
+
+}

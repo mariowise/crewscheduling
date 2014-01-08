@@ -16,8 +16,11 @@ ostream & operator<<(ostream & os, const Service & U) {
 		<< "remainingRest: " << U.remainingRest << ", "
     	<< "tripList: [";
 
-    for(int i = 0; i < U.tripList.size(); i++)
-    	os << U.tripList.at(i) << (i != U.tripList.size() -1) ? ", " : "";
+    for(int i = 0; i < U.tripList.size(); i++) {
+    	os << trips.at(i);
+    	if(i != (U.tripList.size()-1))
+    		os << ", ";
+    }
     
     os 	<< "], "
 		<< "restList: [";

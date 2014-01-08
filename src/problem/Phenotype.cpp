@@ -35,6 +35,7 @@ void Phenotype::createServices(vector<int> genotype){
 		}
 		s.lunchAssignment();
 		s.restAssignment();
+		s.restCorrection();
 		services.push_back(s);
 
 	}

@@ -40,3 +40,9 @@ void Phenotype::createServices(string genotype){
 
 	}
 }
+
+float Phenotype::fitness(){
+
+
+	return 0.0f;
+}

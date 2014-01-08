@@ -18,6 +18,7 @@ public:
 	
 	void createServices(string genotype);	
 
+	float fitness();
 	
 };
 #endif

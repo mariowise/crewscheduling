@@ -12,8 +12,8 @@ public:
 	int id;
 	int partialFitness;
 	DateTime remainingRest; //Tiempo de descanso restante.
-	vector<int> tripList;
-	vector<TimeInterval> restList; //Vector destinado al almacenamiento de descansos en el servicio
+	std::vector<int> tripList;
+	std::vector<TimeInterval> restList; //std::Vector destinado al almacenamiento de descansos en el servicio
 	TimeInterval lunchTime;
 
 	Service() {}
@@ -22,7 +22,7 @@ public:
 		tripList = orig.tripList;
 		lunchTime = orig.lunchTime;
 	}
-	Service(int id, vector<int> tripList, TimeInterval lunchTime) :
+	Service(int id, std::vector<int> tripList, TimeInterval lunchTime) :
 		id(id), tripList(tripList), lunchTime(lunchTime) {};
 	Service(int id, TimeInterval lunchTime) :
 	 	id(id), lunchTime(lunchTime), tripList() {};

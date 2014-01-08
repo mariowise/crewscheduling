@@ -1,5 +1,12 @@
 #include <iostream>
+#include <sstream>
 #include <ctime>
+#include <string>
+
+#include <ga/GA1DBinStrGenome.h>
+#include <ga/GASimpleGA.h>
+#include <ga/GAGenome.h>
+#include <problem/Phenotype.h>
 
 #include <gai/Genotype.h>
 #include <Common.h>
@@ -7,11 +14,25 @@
 using namespace std;
 
 float Genotype::evaluator(GAGenome & dude) {
-	GA1DBinaryStringGenome & realDude = (GA1DBinaryStringGenome) dude;
+	
 
-		
+	GA1DBinaryStringGenome & realDude = ((GA1DBinaryStringGenome &) dude);
+	string genome;
+	ostringstream os;
 
-	return 0.0f;
+	for(int i = 0; i < realDude.length(); i++){
+		os << realDude.gene(i);
+		genome += os.str();
+		os.clear();
+	}
+
+	Phenotype p;
+
+	p.createServices(genome);
+
+
+
+	return p.fitness();
 }
 
 void Genotype::main() {

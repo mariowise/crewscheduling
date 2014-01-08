@@ -50,6 +50,8 @@ float Phenotype::fitness(){
 	float finalFitness = 0.0f;
 
 	finalFitness += pCh.uniqueTrip(*this);
-
+	finalFitness += pCh.validRest(*this);
+	finalFitness += pCh.validLunch(*this);
+	
 	return finalFitness;
 }

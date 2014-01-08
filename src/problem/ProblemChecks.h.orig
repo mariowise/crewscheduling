@@ -1,0 +1,18 @@
+#ifndef PROBLEMCHECKS_H_
+#define PROBLEMCHECKS_H_
+
+using namespace std;
+
+class ProblemChecks {
+public:
+	ProblemChecks();
+
+	float uniqueTrip(Phenotype & dude);
+	float validRest(Phenotype & dude);  
+<<<<<<< HEAD
+	float validLunch(Phenotype & dude);
+=======
+>>>>>>> 25229a91bceae40ddc9af262d6e16ccec3a39e75
+};
+
+#endif

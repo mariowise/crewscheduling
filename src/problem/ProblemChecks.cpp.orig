@@ -48,6 +48,20 @@ float ProblemChecks::uniqueTrip(Phenotype & dude) {
 	return fitness;
 } 
 
+<<<<<<< HEAD
+// float ProblemChecks::validRest(Phenotype dude) {
+
+// 	float fitness = 0;
+
+// 	// Para cada servicio en el individuo.
+// 	for (int i = 0; i < dude.services.size(); i++) {
+
+// 		if (dude.services.at(i).remainingRest < (DateTime)(00:00)) {			
+			
+// 			partialFitness += -1;
+// 			fitness += -1;
+// 		}
+=======
 float ProblemChecks::validRest(Phenotype & dude) {
 
 	float fitness = 0;
@@ -64,17 +78,37 @@ float ProblemChecks::validRest(Phenotype & dude) {
 			dude.services.at(i).partialFitness += 1;
 			fitness += 1;
 		}
+>>>>>>> 25229a91bceae40ddc9af262d6e16ccec3a39e75
 
 		else {
 			// Para cada viaje j del servicio i
 			for (int j = 0; j + 1 < dude.services.at(i).tripList.size(); j++) {
 
+<<<<<<< HEAD
+// 	}
+
+// }
+
+float ProblemChecks::validLunch(Phenotype dude){
+
+	DateTime tarde("17:00");
+	float fitness = 0;
+	int idTrip;
+=======
 				Trip init = trips.at(dude.services.at(i).tripList.at(j));
 				Trip end = trips.at(dude.services.at(i).tripList.at(j+1));
+>>>>>>> 25229a91bceae40ddc9af262d6e16ccec3a39e75
 
 				initFat = init.posFat();
 				endFat = end.preFat();
 
+<<<<<<< HEAD
+		idTrip =dude.services.at(i).tripList.at(0); 
+
+		if(trips.at(idTrip).initTime.h <= tarde.h && dude.services.at(i).lunchTime.type.compare("hungry")==0){
+			fitness += 1;
+			dude.services.at(i).partialFitness += 1;
+=======
 				// Si el intervalo no tiene un almuerzo
 				if (init.initTime.toSeg() + initFat.toSeg() != dude.services.at(i).lunchTime.initTime.toSeg()) {
 					
@@ -85,6 +119,7 @@ float ProblemChecks::validRest(Phenotype & dude) {
 					totalLazyTime = totalLazyTime + delta;
 				}
 			}
+>>>>>>> 25229a91bceae40ddc9af262d6e16ccec3a39e75
 		}
 
 		// Si el tiempo ocioso total es mayor al máximo del descanso, se penaliza al servicio.
@@ -93,6 +128,5 @@ float ProblemChecks::validRest(Phenotype & dude) {
 			fitness += 1;
 		} 
 	}
-
 	return fitness;
 }

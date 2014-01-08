@@ -48,23 +48,23 @@ float ProblemChecks::uniqueTrip(Phenotype dude) {
 	return fitness;
 } 
 
-float ProblemChecks::validRest(Phenotype dude) {
+// float ProblemChecks::validRest(Phenotype dude) {
 
-	float fitness = 0;
+// 	float fitness = 0;
 
-	// Para cada servicio en el individuo.
-	for (int i = 0; i < dude.services.size(); i++) {
+// 	// Para cada servicio en el individuo.
+// 	for (int i = 0; i < dude.services.size(); i++) {
 
-		if (dude.services.at(i).remainingRest < (DateTime)(00:00)) {			
+// 		if (dude.services.at(i).remainingRest < (DateTime)(00:00)) {			
 			
-			partialFitness += -1;
-			fitness += -1;
-		}
+// 			partialFitness += -1;
+// 			fitness += -1;
+// 		}
 
 
-	}
+// 	}
 
-}
+// }
 
 float ProblemChecks::validLunch(Phenotype dude){
 
@@ -77,8 +77,8 @@ float ProblemChecks::validLunch(Phenotype dude){
 		idTrip =dude.services.at(i).tripList.at(0); 
 
 		if(trips.at(idTrip).initTime.h <= tarde.h && dude.services.at(i).lunchTime.type.compare("hungry")==0){
-			fitness += -1;
-			dude.services.at(i).partialFitness += -1;
+			fitness += 1;
+			dude.services.at(i).partialFitness += 1;
 		}
 	}
 

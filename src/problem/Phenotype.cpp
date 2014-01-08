@@ -7,6 +7,7 @@
 #include <eda/Service.h>
 
 #include <problem/Phenotype.h>
+#include <problem/ProblemChecks.h>
 
 #include <Common.h>
 
@@ -44,6 +45,13 @@ void Phenotype::createServices(string genotype){
 
 float Phenotype::fitness(){
 
+	ProblemChecks pCh;
 
-	return 0.0f;
+	float finalFitness = 0.0f;
+
+	finalFitness += pCh.uniqueTrip(this);
+	finalFitness += pCh.uniqueTrip(this);
+	finalFitness += pCh.uniqueTrip(this);
+
+	return finalFiteness;
 }

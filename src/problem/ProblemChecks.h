@@ -7,9 +7,9 @@ class ProblemChecks {
 public:
 	ProblemChecks();
 
-	float uniqueTrip(Phenotype dude);
-	float validRest(Phenotype dude);  
-	float validLunch(Phenotype dude);
+	float uniqueTrip(Phenotype & dude);
+	float validRest(Phenotype & dude);  
+	float validLunch(Phenotype & dude);
 };
 
 #endif

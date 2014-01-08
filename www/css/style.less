@@ -1,0 +1,134 @@
+
+@import "bootstrap/bootstrap.less";
+
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700);
+@import url(http://fonts.googleapis.com/css?family=Chau+Philomene+One);
+
+@font-logo: 'Chau Philomene One', sans-serif;
+@font-titles: 'Roboto Slab', serif;
+
+@site-background-grey: #F0F0F0;
+@site-border-grey: #C5C5C5;
+@site-logo-blue: #428bca;
+
+@site-main-color: #FFFFFF;
+@site-main-color-light: #EEFFED;
+@site-main-gray: #AFAFAF;
+@site-main-font-color: #6B6B6B;
+
+html, body {
+	height: 100%;
+	color: @site-main-font-color;
+}
+
+h1, h2, h3, h4 {
+	font-family: @font-titles;
+}
+
+hr {
+	border-color: @site-border-grey;
+}
+
+#wrapper {
+	position: relative;
+	min-height: 100%;
+	background-color: @site-background-grey;
+
+	& #footer-ghost {
+		height: 50px;
+	}
+}
+
+#header {
+	background-color: @site-main-color;
+	line-height: 35px;
+	border-bottom: 2px solid @site-logo-blue;
+
+	& #logo {
+		width: 90px;
+	}
+}
+
+#footer {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+}
+
+.clislr-image {
+	opacity: 0.7;
+	width: 80%;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.box {
+	border: 1px solid @site-border-grey;
+	padding: 0px 10px;
+	background-color: white;
+
+	& > header:extend(h4) {
+		border-bottom: 1px solid @site-border-grey;
+		line-height: 40px;
+		
+		margin-top: 0px;
+		margin-left: -10px;
+		margin-right: -10px;
+
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	& > section {
+		
+	}
+}
+
+.white {
+	color:white;
+}
+.center {
+	text-align: center;
+}
+.mark {
+	font-family: inherit;
+	color: @site-logo-blue;
+}
+
+form {
+	& .poll-options {
+		
+
+		& > div {
+			position: relative;
+			margin-bottom: 15px;
+			border: 1px solid @site-border-grey;
+			
+			& > div {
+				display: inline-block;
+			}
+			& > i {
+				position: absolute;
+				right: 8px;
+				top: 5px;
+				font-size: 16px;
+				font-family: 'FontAwesome';
+				font-weight: normal;
+  				font-style: normal;
+
+				&:hover {
+					cursor: pointer;
+				}
+			}
+		}
+		& .title {
+			min-width: 120px;
+			background-color: @site-border-grey;
+			color: white;
+			padding: 5px 15px 5px 15px;
+		}
+		& .description {
+			padding-left: 15px;
+			font-style: italic;
+		}
+	}
+}

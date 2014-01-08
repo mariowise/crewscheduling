@@ -55,3 +55,12 @@ float Phenotype::fitness(){
 	
 	return finalFitness;
 }
+
+std::ostream & operator<<(std::ostream & os, const Phenotype & phenom) {
+	os << "-----------------------------------------------" << endl;
+	os << "--Phenotype------------------------------------" << endl;
+	for(int i = 0; i < phenom.services.size(); i++) {
+		cout << phenom.services.at(i) << endl;
+	}
+	os << "-----------------------------------------------" << endl;
+}

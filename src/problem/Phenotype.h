@@ -6,19 +6,17 @@
 
 #include <eda/Service.h>
 
-using namespace std;
-
 class Phenotype
 {
 public:
-	
-	vector<Service> services;
+	std::vector<Service> services;
 
 	Phenotype() {};
 	
-	void createServices(string genotype);	
+	void createServices(std::string genotype);	
 
 	float fitness();
 	
+	friend std::ostream & operator<<(std::ostream &, const Phenotype &);
 };
 #endif

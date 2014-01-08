@@ -24,10 +24,11 @@ float Genotype::evaluator(GAGenome & dude) {
 		os.clear();
 	}
 
-	cout << "  evaluator(" << genome << ")";
 
 	Phenotype p;
 	p.createServices(genome);
+	cout << p;
+	cout << "  evaluator(" << genome << ")";
 	float fit = p.fitness();
 
 	cout << " = " << fit << endl;

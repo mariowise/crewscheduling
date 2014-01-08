@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <cstring>
+
 
 #include <eda/TimeInterval.h>
 #include <eda/Trip.h>
@@ -94,3 +96,4 @@ float ProblemChecks::validRest(Phenotype & dude) {
 	return fitness;
 }
 
+}

@@ -7,6 +7,9 @@
 using namespace std;
 
 float Genotype::evaluator(GAGenome & dude) {
+	GA1DBinaryStringGenome & realDude = (GA1DBinaryStringGenome) dude;
+
+		
 
 	return 0.0f;
 }

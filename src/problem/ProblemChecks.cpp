@@ -32,7 +32,8 @@ float ProblemChecks::uniqueTrip(Phenotype & dude) {
 			for (int k = i+1; k < dude.services.size(); k++) {
 
 				//Comparar con cada viaje l del servicio k (posterior a i).
-				for (int l = 0; l < dude.services.at(k).tripList.size(); l++) {
+				//Agregado && (valid == true)
+				for (int l = 0; l < (dude.services.at(k).tripList.size()) && (valid == true); l++) { 
 
 					Trip tripL = trips.at(dude.services.at(k).tripList.at(l));
 

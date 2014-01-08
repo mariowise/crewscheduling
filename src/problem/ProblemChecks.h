@@ -6,6 +6,8 @@ using namespace std;
 class ProblemChecks {
 public:
 	ProblemChecks();
+
+	float uniqueTrip(Phenotype dude);  
 };
 
 #endif

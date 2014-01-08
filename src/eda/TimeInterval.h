@@ -4,12 +4,10 @@
 #include <eda/DateTime.h>
 #include <string>
 
-using namespace std;
-
 class TimeInterval {
 public: 
 	int id;
-	string type;
+	std::string type;
 	DateTime initTime;
 	DateTime endTime;
 	int fat;
@@ -22,9 +20,9 @@ public:
 		endTime = orig.endTime;
 		fat = orig.fat;
 	};
-	TimeInterval(int id, string type) : 
+	TimeInterval(int id, std::string type) : 
 		id(id), type(type), initTime(0, 0), endTime(0, 0) {};
-	TimeInterval(int id, string type, DateTime initTime, DateTime endTime, int fat) :
+	TimeInterval(int id, std::string type, DateTime initTime, DateTime endTime, int fat) :
 		id(id), type(type), initTime(initTime), endTime(endTime), fat(fat) {};
 	TimeInterval(DateTime initTime, DateTime endTime) : 
 		id(), type(), initTime(initTime), endTime(endTime) {};
@@ -36,7 +34,7 @@ public:
 		endTime = orig.endTime;
 	}
 
-	friend ostream & operator<<(ostream &, const TimeInterval &);
+	friend std::ostream & operator<<(std::ostream &, const TimeInterval &);
 
 	DateTime length();
 };

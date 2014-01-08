@@ -32,12 +32,17 @@ int main(int argc, char * argv[]) {
 	 Reader rd;
 	 rd.readFile("etc/EntradaPrototipe.txt");
 
-	 vector<int> geno;
+	 string geno;
 
 	 srand(time(NULL));
 
 	 for(int j = 0; j < trips.size()*trips.size(); j++){
-	 	geno.push_back(rand()%2);
+	 	if(rand()%2==0){
+	 		geno += "0";
+	 	}
+	 	else{
+	 		geno += "1";
+	 	}
 	 }
 
 	 Phenotype p;
@@ -62,7 +67,7 @@ int main(int argc, char * argv[]) {
 	 // }
 
 	 // cout << serv.remainingRest << endl;
-	 cout << p.services.size() << endl;
+	 
 	 for(int i=0; i < p.services.size(); i++){
 	 
 	 	cout<<p.services.at(i)<<endl;

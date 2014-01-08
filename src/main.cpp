@@ -10,6 +10,7 @@
 #include <eda/Trip.h>
 #include <eda/Service.h>
 #include <problem/Phenotype.h>
+#include <gai/Genotype.h>
 
 #include <problem/Reader.h>
 
@@ -25,53 +26,13 @@ vector<TimeInterval> fats;
 
 map<string, DateTime> generalIntervals;
 
-
-
 int main(int argc, char * argv[]) {	
+	Reader rd;
+	rd.readFile("etc/EntradaPrototipe.txt");
+	cout << "Lectura del archivo realizada" << endl;
 
-	 Reader rd;
-	 rd.readFile("etc/EntradaPrototipe.txt");
 
-	 string geno;
+	Genotype::main();
 
-	 srand(time(NULL));
-
-	 for(int j = 0; j < trips.size()*trips.size(); j++){
-	 	if(rand()%2==0){
-	 		geno += "0";
-	 	}
-	 	else{
-	 		geno += "1";
-	 	}
-	 }
-
-	 Phenotype p;
-
-	 p.createServices(geno);
-
-	 //rd.testRead();
-
-	 // Service serv;
-	 // serv.id = 1;
-	 // serv.tripList.push_back(0);
-	 // serv.tripList.push_back(1);
-	 // serv.tripList.push_back(3);
-	 // serv.tripList.push_back(4);l
-	 // serv.lunchAssignment();
-	 // cout << serv.lunchTime << endl;
-	 
-	 // serv.restAssignment();
-
-	 // for (int i = 0; i < serv.restList.size(); i++) {
-	 // 	cout << serv.restList[i] << endl;
-	 // }
-
-	 // cout << serv.remainingRest << endl;
-	 
-	 for(int i=0; i < p.services.size(); i++){
-	 
-	 	cout<<p.services.at(i)<<endl;
-	 }
-	 
 	return 0;
 }

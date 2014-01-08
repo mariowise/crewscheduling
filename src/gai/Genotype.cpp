@@ -14,8 +14,6 @@
 using namespace std;
 
 float Genotype::evaluator(GAGenome & dude) {
-	
-
 	GA1DBinaryStringGenome & realDude = ((GA1DBinaryStringGenome &) dude);
 	string genome;
 	ostringstream os;
@@ -26,13 +24,15 @@ float Genotype::evaluator(GAGenome & dude) {
 		os.clear();
 	}
 
+	cout << "  evaluator(" << genome << ")";
+
 	Phenotype p;
-
 	p.createServices(genome);
+	float fit = p.fitness();
 
+	cout << " = " << fit << endl;
 
-
-	return p.fitness();
+	return fit;
 }
 
 void Genotype::main() {
@@ -46,9 +46,11 @@ void Genotype::main() {
 	float pCross = 0.9;
 
 	// Se crea el objeto genoma
+	cout << "Creando prototipo para Genoma" << endl;
 	GA1DBinaryStringGenome genoma(genotypeLength, Genotype::evaluator);
 
 	// Lanzamiento del algoritmo genético
+	cout << "Configurando el GAlib" << endl;
 	GASimpleGA ga(genoma);
 	ga.populationSize(popSize);
 	ga.nGenerations(nGen);

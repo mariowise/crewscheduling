@@ -39,9 +39,9 @@ void Phenotype::createServices(string genotype){
 		cout<<s.remainingRest<<endl;
 		s.partialFitness = 0;
 		services.push_back(s);
-
 	}
-	cout << "Phenotype creado de forma exitosa" << endl;
+
+	// cout << "Phenotype creado de forma exitosa" << endl;
 }
 
 float Phenotype::fitness(){
@@ -56,36 +56,43 @@ float Phenotype::fitness(){
 
 	}
 
-	cout << "Calculando fitness" << endl;
+	// cout << "Calculando fitness" << endl;
 	ProblemChecks pCh;
 
 	float finalFitness = 0.0f;
 	float aux = 0.0f;
 
 
-	cout << " Servicios válidos base = " << numServices << endl;	
+	// cout << " Servicios válidos base = " << numServices << endl;	
 	finalFitness += numServices;
 	
 	aux = pCh.uniqueTrip(*this);
-	cout << "  uniqueTrip = " << aux << endl;
+	// cout << "  uniqueTrip = " << aux << endl;
 	finalFitness += aux;
 
 	aux = pCh.validRest(*this);
-	cout << "  validRest = " << aux << endl;
+	// cout << "  validRest = " << aux << endl;
 	finalFitness += aux;
 
 	aux = pCh.validLunch(*this);
-	cout << "  validLunch = " << aux << endl;
+	// cout << "  validLunch = " << aux << endl;
 	finalFitness += aux;
-	
-	return 1 / finalFitness;
+
+	aux = pCh.validWladi(*this);
+	finalFitness += aux;
+
+	return finalFitness;
 }
 
 std::ostream & operator<<(std::ostream & os, const Phenotype & phenom) {
 	os << "-----------------------------------------------" << endl;
 	os << "--Phenotype------------------------------------" << endl;
+	os << "[";
 	for(int i = 0; i < phenom.services.size(); i++) {
-		cout << phenom.services.at(i) << endl;
+		cout << phenom.services.at(i) << endl << endl;
+		if(i != phenom.services.size()-1) 
+			os << ", ";
 	}
+	os << "]";
 	os << "-----------------------------------------------" << endl;
 }

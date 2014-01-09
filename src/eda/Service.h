@@ -19,6 +19,8 @@ public:
 	Service() {}
 	Service(const Service & orig) {
 		id = orig.id;
+		partialFitness = orig.partialFitness;
+		remainingRest = orig.remainingRest;
 		tripList = orig.tripList;
 		lunchTime = orig.lunchTime;
 	}

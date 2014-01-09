@@ -117,3 +117,24 @@ float ProblemChecks::validLunch(Phenotype & dude){
 	}
 	return fitness;
 }
+
+float ProblemChecks::validWladi(Phenotype & dude) {
+	int count = 0;
+	for(int i = 0; i < dude.services.size(); i++) 
+		count += dude.services.at(i).tripList.size();	
+	return (count == trips.size()) ? 0 : 5000;
+}
+
+float ProblemChecks::serviceLimit(Phenotype & dude) {
+	bool valid = true;
+	float fitness = 0;
+
+	for (int i = 0; (i < dude.services.size()) && (valid == true); i++) {
+		if (dude.services.at(i).length().toSeg() > generalIntervals.at("maxTimeDriving").toSeg()) {
+			valid = false;
+			dude.services.at(i).partialFitness += 500;
+			fitness += 500;
+		} 
+	}
+	return fitness;
+} 

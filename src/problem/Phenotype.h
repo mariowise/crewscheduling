@@ -16,7 +16,7 @@ public:
 	void createServices(std::string genotype);	
 
 	float fitness();
-	
+
 	friend std::ostream & operator<<(std::ostream &, const Phenotype &);
 };
 #endif

@@ -107,13 +107,13 @@ float ProblemChecks::validLunch(Phenotype & dude){
 
 	for(int i = 0; i < dude.services.size(); i++){
 		if(dude.services.at(i).tripList.size() > 0){
-		idTrip =dude.services.at(i).tripList.at(0); 
+			idTrip =dude.services.at(i).tripList.at(0); 
 
-		if(trips.at(idTrip).initTime.h <= tarde.h && dude.services.at(i).lunchTime.type.compare("hungry")==0){
-			fitness += 1;
-			dude.services.at(i).partialFitness += 1;
+			if(trips.at(idTrip).initTime.h <= tarde.h && dude.services.at(i).lunchTime.type.compare("lunch")!=0){
+				fitness += 1;
+				dude.services.at(i).partialFitness += 1;
+			}
 		}
-	}
 	}
 	return fitness;
 }

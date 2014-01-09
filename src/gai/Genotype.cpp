@@ -14,28 +14,42 @@
 
 using namespace std;
 
+int globalCount = 0;
+
 float Genotype::evaluator(GAGenome & dude) {
 	// sleep(1);
-	cout << endl << "Trips.size() = " << trips.size() << endl << endl;
+	// cout << endl << "Trips.size() = " << trips.size() << endl << endl;
 	GA1DBinaryStringGenome & realDude = ((GA1DBinaryStringGenome &) dude);
 	string genome;
 	ostringstream os;
 
-	for(int i = 0; i < realDude.length(); i++){
+	for(int i = 0; i < trips.size() * trips.size(); i++){
 		os << realDude.gene(i);
-		genome += os.str();
-		os.clear();
 	}
+
+	genome = os.str();
 
 	Phenotype p;
 	p.createServices(genome);
-	cout << p;
-	cout << "  evaluator(" << genome << ")";
+	// cout << p;
+	// cout << "  evaluator(" << genome << ")";
 	float fit = p.fitness();
 
-	cout << " = " << fit << endl;
+	// if(globalCount++ % 1000 == 0) {
+	// 	cout << genome << "(" << fit << ")" << endl;	
+	// }
 
-	return fit;
+	
+	// if(fit < 100) {
+	// 	cout << "Apareció un wn bkn " << genome << "(" << fit << ")" << endl;
+	// 	// exit(0);
+	// }
+
+	if(fit == 0) {
+		fit = 5010;
+	}
+
+	return 1/fit;
 }
 
 void Genotype::main() {
@@ -43,10 +57,6 @@ void Genotype::main() {
 
 	// Configuración de GA
 	int genotypeLength = trips.size() * trips.size();
-	int popSize = 50;
-	int nGen = 400;
-	float pMut = 0.001;
-	float pCross = 0.9;
 
 	// Se crea el objeto genoma
 	cout << "Creando prototipo para Genoma (" << genotypeLength << ")" << endl;
@@ -55,12 +65,19 @@ void Genotype::main() {
 	// Lanzamiento del algoritmo genético
 	cout << "Configurando el GAlib" << endl;
 	GASimpleGA ga(genoma);
-	ga.populationSize(popSize);
-	ga.nGenerations(nGen);
-	ga.pMutation(pMut);
-	ga.pCrossover(pCross);
+	ga.populationSize(500);
+	ga.nGenerations(6000);
+	ga.pMutation(0.01);
+	ga.pCrossover(0.9);
 	ga.evolve(); // Launch
 
-	// El wladi de la wea
-	cout << "The GA found:\n" << ga.statistics().bestIndividual() << "\n";
+	ostringstream wladi;
+	wladi << ga.statistics().bestIndividual();
+
+	Phenotype fwladi;
+	fwladi.createServices(wladi.str());
+
+	cout << "\nThe GA found: (" << fwladi.fitness() << ")" << wladi.str() << "\n";	
+
+	cout << fwladi << endl;
 }

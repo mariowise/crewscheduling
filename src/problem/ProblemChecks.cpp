@@ -107,13 +107,34 @@ float ProblemChecks::validLunch(Phenotype & dude){
 
 	for(int i = 0; i < dude.services.size(); i++){
 		if(dude.services.at(i).tripList.size() > 0){
-		idTrip =dude.services.at(i).tripList.at(0); 
+			idTrip =dude.services.at(i).tripList.at(0); 
 
-		if(trips.at(idTrip).initTime.h <= tarde.h && dude.services.at(i).lunchTime.type.compare("hungry")==0){
-			fitness += 1;
-			dude.services.at(i).partialFitness += 1;
+			if(trips.at(idTrip).initTime.h <= tarde.h && dude.services.at(i).lunchTime.type.compare("lunch")!=0){
+				fitness += 1;
+				dude.services.at(i).partialFitness += 1;
+			}
 		}
-	}
 	}
 	return fitness;
 }
+
+float ProblemChecks::validWladi(Phenotype & dude) {
+	int count = 0;
+	for(int i = 0; i < dude.services.size(); i++) 
+		count += dude.services.at(i).tripList.size();	
+	return (count == trips.size()) ? 0 : 5000;
+}
+
+float ProblemChecks::serviceLimit(Phenotype & dude) {
+	bool valid = true;
+	float fitness = 0;
+
+	for (int i = 0; (i < dude.services.size()) && (valid == true); i++) {
+		if (dude.services.at(i).length().toSeg() > generalIntervals.at("maxTimeDriving").toSeg()) {
+			valid = false;
+			dude.services.at(i).partialFitness += 500;
+			fitness += 500;
+		} 
+	}
+	return fitness;
+} 

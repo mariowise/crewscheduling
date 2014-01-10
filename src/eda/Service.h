@@ -10,32 +10,38 @@
 class Service {
 public:
 	int id;
-	int partialFitness;
-	DateTime remainingRest; //Tiempo de descanso restante.
-	std::vector<int> tripList;
-	std::vector<TimeInterval> restList; //std::Vector destinado al almacenamiento de descansos en el servicio
-	TimeInterval lunchTime;
+	std::vector<TimeInterval> blocks; 	// Intervalos de Trip, Rest, Fat, Leisure y Lunch
+	DateTime timeDriving;
+	DateTime timeContinuosDriving;
+	DateTime timeLeisure;
+	bool hasLunch;
 
-	Service() {}
+	Service() : 
+		timeDriving("0:0"), 
+		timeContinuosDriving("0:0"), 
+		timeLeisure("0:0"), 
+		hasLunch(false) {}
 	Service(const Service & orig) {
 		id = orig.id;
-		partialFitness = orig.partialFitness;
-		remainingRest = orig.remainingRest;
-		tripList = orig.tripList;
-		lunchTime = orig.lunchTime;
+		blocks = orig.blocks;
+		timeDriving = orig.timeDriving;
+		timeContinuosDriving = orig.timeContinuosDriving;
+		hasLunch = orig.hasLunch;
+		timeLeisure = orig.timeLeisure;
 	}
-	Service(int id, std::vector<int> tripList, TimeInterval lunchTime) :
-		id(id), tripList(tripList), lunchTime(lunchTime) {};
-	Service(int id, TimeInterval lunchTime) :
-	 	id(id), lunchTime(lunchTime), tripList() {};
 
 	friend std::ostream & operator<<(std::ostream &, const Service &);
 
 	DateTime length();
+	bool push(int);
+
+private:
+	void _push(std::string, void *);
+
 	// SIEMPRE SE DEBE ASIGNAR EL ALMUERZO ANTES QUE EL DESCANSO Y CORRECCION DESPUES DE DESCANSO
-	void restAssignment(); 	//Asignación del descanso en restlist por conducción continua. 
-	void lunchAssignment(); 	//Asignción del almuerzp en lunchTime.
-	void restCorrection();	//Asignación del tiempo de descanso restante.   
+	// void restAssignment(); 	//Asignación del descanso en restlist por conducción continua. 
+	// void lunchAssignment(); 	//Asignción del almuerzp en lunchTime.
+	// void restCorrection();	//Asignación del tiempo de descanso restante.   
 };
 
 #endif

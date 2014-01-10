@@ -12,7 +12,8 @@ public:
 	Reader(std::string path) : path(path) {}
 
 	
-	void readFile(const char * filename);	
+	void readFile(const char * filename);
+	void readString(const char *);	
 	std::vector<std::string> split(std::string str, const char * delim);
 	void testRead();
 

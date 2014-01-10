@@ -7,10 +7,9 @@
 
 class Genotype {
 public:
+	Genotype() {}
+
 	static float evaluator(GAGenome &);
-
-	Genotype() {};
-
 	static void main();
 };
 

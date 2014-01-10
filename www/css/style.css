@@ -6055,3 +6055,24 @@ form .poll-options .description {
   padding-left: 15px;
   font-style: italic;
 }
+#services {
+  width: 100%;
+}
+#services .service {
+  width: 100%;
+}
+#services .service .block {
+  display: inline-block;
+  height: 50px;
+  border: 1px dotted #FF7171;
+  text-align: center;
+  line-height: 50px;
+  font-size: 13px;
+}
+#services .service .block.Trip {
+  background-color: #20D12E;
+}
+#services .service .offset {
+  display: inline-block;
+  height: 50px;
+}

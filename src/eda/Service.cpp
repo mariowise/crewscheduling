@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 
+#include <eda/DateTime.h>
 #include <eda/TimeInterval.h>
 #include <eda/Trip.h>
 #include <eda/Station.h>
@@ -12,160 +13,178 @@ using namespace std;
 
 ostream & operator<<(ostream & os, const Service & U) {
 	os 	<< "{ id: '" << U.id << "', "
-		<< "partialFitness: " << U.partialFitness << ", "
-		<< "remainingRest: " << U.remainingRest << ", "
-    	<< "tripList: [";
+		<< "timeDriving: " << U.timeDriving << ", "
+		<< "timeContinuosDriving: " << U.timeContinuosDriving << ", "
+		<< "timeLeisure: " << U.timeLeisure << ", "
+		<< "hasLunch: " << U.hasLunch << ", "
+    	<< "blocks: [";
 
-    for(int i = 0; i < U.tripList.size(); i++) {
-    	os << trips.at(i);
-    	if(i != (U.tripList.size()-1))
+    for(int i = 0; i < U.blocks.size(); i++) {
+    	os << U.blocks.at(i);
+    	if(i != (U.blocks.size()-1))
     		os << ", ";
     }
     
-    os 	<< "], "
-		<< "restList: [";
-	for(int i = 0; i < U.restList.size(); i++)
-		os << U.restList.at(i) << (i != U.restList.size() -1) ? ", " : "";
-	
-	os 	<< "], "
-    	<< "time: " << U.lunchTime << " }";
+    os 	<< "] }";
     return os;
 }
 
 // 	
 // 
 // length
-// 	Retorna el largo del Servicio a traves de la diferencia		
-// 	entre el inicio del primer Trip y el fin del último
+// 	Retorna el largo del servicio calculando la diferenicia entre el final
+//  del ultimo bloque y el comienzo del primero.
 DateTime Service::length() {
-	Trip init = trips.at(tripList.front());
-	Trip end = trips.at(tripList.back());
-	return end.endTime - init.initTime;
-	}
-
-// Asigna descansos cuando se ha superado el tiempo de conducción y los resta del tiempo de 
-// descanso máximo.	
-void Service::restAssignment() {
-	DateTime drivenTime("00:00");
-	DateTime minRest("00:15");
-	DateTime delta, initFat, endFat; //Holguras de inicio y fin de intervalo.
-	remainingRest = generalIntervals.at("maxTimeRest"); //Tiempo de descanso restante.
-	DateTime maxDrivenTime = generalIntervals.at("maxTimeTrip");//Tiempo máximo de conducción continua.
-	TimeInterval rest;
-
-	for (int i = 0; (i+1 < tripList.size()) && (remainingRest.toSeg() > 0); i++) {
-		Trip init = trips.at(tripList.at(i)); //<!>
-		Trip end = trips.at(tripList.at(i+1)); //<!>
-
-		if ((drivenTime.toSeg() + init.length().toSeg() >= maxDrivenTime.toSeg()) && 
-			(init.endTime.toSeg() + init.posFat().toSeg() != lunchTime.initTime.toSeg())) {
-			rest.id = 200+id+i;
-
-			// Se calculan las holguras que limitan al intervalo.
-			initFat = init.posFat();
-			endFat = end.preFat();
-
-			rest.initTime = init.endTime + initFat; //<!> podrían incluirse en la función preFat o posFat
-			rest.endTime =  end.initTime - endFat;
-
-			if (rest.length().toSeg() >= minRest.toSeg()) {
-				rest.type = "fullRest";
-				drivenTime.setZero(); //Dado q rest>15 se reinicia el contador de tiempo continuo.	
-			}
-
-			else rest.type = "partialRest";
-			
-			delta = rest.length();
-			remainingRest = remainingRest - delta;
-			restList.push_back(rest);
-			//drivenTime.setZero();		El tiempo de conducción solo se reinicia cuando rest>15	
-		}
-
-		else if (init.endTime.toSeg() + init.posFat().toSeg() == lunchTime.initTime.toSeg()) {
-			drivenTime.setZero();
-		}
-
-		else if ((drivenTime.toSeg() + init.length().toSeg() < maxDrivenTime.toSeg()) && 
-			(init.posFat().toSeg() != lunchTime.initTime.toSeg())){
-			delta = end.initTime - init.initTime;
-			drivenTime = drivenTime + delta;
-		}
-	}			 
+	return 
+	blocks.back().endTime - 
+	blocks.front().initTime;
 }
 
-// Asigna el almuerzo en el primer intervalo de tiempo ocioso que sea igual
-// o mayor al tiempo de almuerzo máximo - se sugiere renombrarlo como mínimo.
-void Service::lunchAssignment() {
-	TimeInterval lunchInterval;
-	bool lunchAssigned = false;	//Se asignó el horario de almuerzo?
-	DateTime maxLunchTime = generalIntervals.at("maxLunchTime");
-	DateTime initFat, endFat, delta; //Holguras de inicio y fin de intervalo.
+//
+//
+// push
+//  Recibe un trip y lo intenta apilar en este servicio verificando las 
+//  restricciones del problema. Si no lo puede apilar, retorna false. Si
+//  lo logra apilar de forma exitosa retorna true.
+bool Service::push(int daTrip) {
+	Trip candidate = trips.at(daTrip);
+	DateTime aux;
+
+	// Si el blocks esta vacío entra como avión
+	if(blocks.size() == 0) {
+		// Carga del nuevo block (TimeInterval)
+		_push("Trip", &candidate);
+		_push("Fat", NULL);
+		timeDriving = 
+		timeContinuosDriving =
+		candidate.length();
+		return true;
+	}
+	// Blocks no esta vacío
 	
-	// Se recorren los trips de servicio, dado que se busca un intervalo entre 2 trips se
-	// detiene el recorrido en i + 1 < total de trips en servicio. 
-	for (int i = 0; (i+1 < tripList.size()) && (lunchAssigned == false); i++) { 
-		Trip init = trips.at(tripList.at(i)); //<!>
-		Trip end = trips.at(tripList.at(i+1)); //<!>
-
-		// Se calculan las holguras que limitan al intervalo.
-		initFat = init.posFat();
-		endFat = end.preFat();
-
-		end.initTime = end.initTime - endFat; //<!> podrían incluirse en la función preFat o posFat
-		init.endTime = init.endTime + initFat;
-		delta = end.initTime - init.endTime;
-		
-		if (delta >= maxLunchTime) {
-			lunchInterval.id = 100+id;
-			lunchInterval.type = "lunch";
-			lunchInterval.initTime = init.endTime; 
-			lunchInterval.endTime = init.endTime + maxLunchTime;
-			lunchTime = lunchInterval;
-			lunchAssigned = true;
-		}
+	// ¿Acaso deberíamos insertar el Lunch?
+	if(!hasLunch)
+	if(timeDriving >= generalIntervals["maxTimeDrivingBeforeLunch"]) {
+		hasLunch = true;
+		_push("Lunch", NULL); // Se inserta el Lunch
 	}
 
-	// En caso de no hallar un intervalo para el almuerzo se establece al servicio
-	// como hambriento.
-	if (lunchAssigned == false) {
-		lunchTime.type = "hungry";
-		lunchTime.id = -1;
-		lunchTime.initTime = (DateTime)("-1:-1");
-		lunchTime.endTime = (DateTime)("-1:-1"); 
+	// ¿Acaso lleva demasiado tiempo conduciendo de forma continua?
+	if(timeContinuosDriving >= generalIntervals["maxTimeContinuousDriving"]) {
+		timeContinuosDriving = (DateTime) "0:0";	
+		_push("Rest", NULL);
 	}
+	
+
+	// ¿Acaso el Trip entrante cabe en el servicio?
+	aux = candidate.length();
+	aux = timeDriving + aux;
+	if(!(aux < generalIntervals["maxTimeDriving"]))
+		return false;
+	// El Trip entrante si cabe en el servicio
+
+	// ¿Acaso el Trip entrante esta a la derecha del ultimo bloque?
+	if(!(blocks.back().endTime <= candidate.initTime))
+		return false;
+	// El Trip entrante si esta a la derecha
+
+	/////////////////////////////////////////////////////////////////////
+	// Comienza rutina de apilado (Acá se agregará si o si )/////////////
+	/////////////////////////////////////////////////////////////////////
+	// ¿Acaso al ingresar el Trip entrante se genera un espacio vacío?
+	if(blocks.back().endTime < candidate.initTime) {
+		_push("Leisure", &candidate.initTime);
+		aux = blocks.back().length();
+		timeLeisure =
+			timeLeisure + aux;
+	}
+
+	// Antes de agregar el Trip que ya entra si o si, es necesario
+	// incrementar el tiempo de conducción y el tiempo de conducción
+	// continua. Si el bloque anterior != "Fat" entonces quiere decir
+	// que antes hay un Rest o un Leisure o un Lunch, entonces el tiempo
+	// de conducción continua vuelve a "0:0" (Resetea)
+	aux = candidate.length();
+	timeDriving = 
+		timeDriving + aux;
+	if(blocks.back().type.compare("Fat")) {
+		aux = candidate.length();	
+		timeContinuosDriving = 
+			timeContinuosDriving + aux;
+	}
+	else
+		timeContinuosDriving = (DateTime) "0:0";
+	_push("Trip", &candidate);
+	_push("Fat", NULL);
+	return true;
 }
 
-// Asigna descansos a intervalos de ocioso mientras quede tiempo por asignar. 
-void Service::restCorrection() {
-	bool restDetected;
-	TimeInterval rest;
-	DateTime initFat, endFat, delta;
+//
+//
+// _push ..::Proxy::..
+//  Recibe un puntero puntero desconocido y según lo que sea determina
+//  que tipo de bloque se va apilar, y finalmente lo apila. Los tipos de 
+//  de bloque son: Trip, Rest, Fat, Leisure y Lunch
+void Service::_push(string typeName, void * source) {
+	TimeInterval candidate;
+	
+	// Trip
+	if(typeName.compare("Trip") == 0) {
+		Trip * tr = (Trip *) source;
+		candidate.id = tr->id;
+		candidate.type = "Trip";
+		candidate.initTime = tr->initTime;
+		candidate.endTime = tr->endTime;
+		blocks.push_back(candidate);
+		return;
+	}
 
-	for (int i = 0; (i+1 < tripList.size()) && (remainingRest.toSeg() > 0); i++){
+	// Rest => source == NULL
+	else if(typeName.compare("Rest") == 0) {
+		DateTime base = blocks.back().endTime;
+		DateTime next = base + generalIntervals["restLength"];
+		candidate.id = -1;
+		candidate.type = "Rest";
+		candidate.initTime = base;
+		candidate.endTime = next;
+		blocks.push_back(candidate);
+		return;
+	}
 
-		restDetected = false;
+	// Fat => source == NULL
+	else if(typeName.compare("Fat") == 0) {
+		TimeInterval daFat(fats, blocks.back().endTime);
+		daFat.type = "Fat";
+		daFat.id = -1;
+		blocks.push_back(daFat);
+		return;
+	}
 
-		Trip init = trips.at( tripList.at( i ) );
-		Trip end = trips.at( tripList.at( i+1 ) );
+	// Leisure
+	else if(typeName.compare("Leisure") == 0) {
+		DateTime * leend = (DateTime *) source;
+		candidate.id = -1;
+		candidate.type = "Leisure";
+		candidate.initTime = blocks.back().endTime;
+		candidate.endTime = *leend;
+		blocks.push_back(candidate);
+		return;
+	}
 
-		for(int j = 0; j < restList.size() && restDetected == false; j++) {
+	// Lunch => source == NULL
+	else if(typeName.compare("Lunch") == 0) {
+		DateTime base = blocks.back().endTime;
+		DateTime next = base + generalIntervals["lunchLength"];
+		candidate.id = -1;
+		candidate.type = "Lunch";
+		candidate.initTime = base;
+		candidate.endTime = next;
+		blocks.push_back(candidate);
+		return;
+	}
 
-			if(((init.endTime.toSeg() + init.posFat().toSeg()) != restList.at(j).initTime.toSeg()) && 
-				((init.endTime.toSeg() + init.posFat().toSeg()) != lunchTime.initTime.toSeg())) {
-
-				initFat = init.posFat();
-				endFat = end.preFat();
-
-				restDetected = true;
-				rest.id = 300+i;
-				rest.type = "partialRest";
-				rest.initTime = init.endTime + initFat;
-				rest.endTime = end.initTime - endFat;
-
-				delta = rest.length();
-				remainingRest = remainingRest - delta;
-				restList.push_back(rest);
-			}
-		} 		 
-	}	
+	else {
+		cout << "* Error: Se ha llamado al proxy Service::_push con una opción inválida '" << typeName << "'" << endl;
+		exit(1);
+	}
 }

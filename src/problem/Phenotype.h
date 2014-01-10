@@ -11,12 +11,14 @@ class Phenotype
 public:
 	std::vector<Service> services;
 
-	Phenotype() {};
+	Phenotype() {}
 	
-	void createServices(std::string genotype);	
-
-	float fitness();
+	void init(std::string);
+	float getFitness();
 
 	friend std::ostream & operator<<(std::ostream &, const Phenotype &);
+
+private:
+	void _push(int);	
 };
 #endif

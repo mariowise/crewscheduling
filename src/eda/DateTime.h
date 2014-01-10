@@ -30,13 +30,13 @@ public:
 		m = orig.m;
 	}
 
-	const DateTime operator+(DateTime & other) {
+	const DateTime & operator+(DateTime & other) {
 		return toDateTime(
 			this->toSeg() + other.toSeg()
 		);
 	}
 
-	const DateTime operator-(DateTime & other) {
+	const DateTime & operator-(DateTime & other) {
 		return toDateTime(
 			this->toSeg() - other.toSeg()
 		);		
@@ -54,7 +54,7 @@ public:
 
 
 
-	int toSeg() {
+	int toSeg() const {
 		return 60 * ( m  + h * 60);
 	}	
 

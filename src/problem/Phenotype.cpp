@@ -13,86 +13,68 @@
 
 using namespace std;
 
-//Crea servicios a partir de la entrada binario de ceros y unos
-void Phenotype::createServices(string genotype){
-
-	int numTrips = trips.size();
-	int i = 0;
-	int j = 0;
-	int tripId;
-	
-	for(i = 0; i < numTrips; i++) {
-		Service s;
-		s.id = i;
-		for(j = numTrips * i; j < numTrips * (i+1); j++) {
-			if(genotype[j]=='1') {
-
-				tripId = (j % numTrips);
-				s.tripList.push_back(tripId);
-
-			}
-		}
-		s.lunchAssignment();
-		s.restAssignment();
-		cout<<s.remainingRest<<endl;
-		s.restCorrection();
-		cout<<s.remainingRest<<endl;
-		s.partialFitness = 0;
-		services.push_back(s);
-	}
-
-	// cout << "Phenotype creado de forma exitosa" << endl;
-}
-
-float Phenotype::fitness(){
-
-	int numServices = 0;
-
-	for(int i = 0; i < services.size(); i++){
-
-		if(services.at(i).tripList.size() > 0){
-			numServices += 1;
-		}
-
-	}
-
-	// cout << "Calculando fitness" << endl;
-	ProblemChecks pCh;
-
-	float finalFitness = 0.0f;
-	float aux = 0.0f;
-
-
-	// cout << " Servicios válidos base = " << numServices << endl;	
-	finalFitness += numServices;
-	
-	aux = pCh.uniqueTrip(*this);
-	// cout << "  uniqueTrip = " << aux << endl;
-	finalFitness += aux;
-
-	aux = pCh.validRest(*this);
-	// cout << "  validRest = " << aux << endl;
-	finalFitness += aux;
-
-	aux = pCh.validLunch(*this);
-	// cout << "  validLunch = " << aux << endl;
-	finalFitness += aux;
-
-	aux = pCh.validWladi(*this);
-	finalFitness += aux;
-
-	return finalFitness;
-}
-
 std::ostream & operator<<(std::ostream & os, const Phenotype & phenom) {
 	os << "-----------------------------------------------" << endl;
 	os << "--Phenotype------------------------------------" << endl;
 	os << "[";
 	for(int i = 0; i < phenom.services.size(); i++) {
-		cout << phenom.services.at(i) << endl << endl;
+		cout << phenom.services.at(i);
 		if(i != phenom.services.size()-1) 
 			os << ", ";
 	}
-	os << "]";
+	os << " ]" << endl;
 	os << "-----------------------------------------------" << endl;
+}
+
+// 
+// 
+// init
+//  Aplica el algoritmo de traducción desde el genotipo al fenotipo
+//  llamando a la heurística de apilamiento mediante 'push'
+void Phenotype::init(string genotype) {
+	int i;
+	// A por los 1
+	for(i = 0; i < genotype.size(); i++) {
+		if(genotype.at(i) == '1') {
+			_push(i);
+			cout << i << " ";
+		}
+	}
+	// A por los 0
+	for(i = 0; i < genotype.size(); i++) {
+		if(genotype.at(i) == '0') {
+			_push(i);
+			cout << i << " ";
+		}
+	}
+	cout << endl;
+}
+
+// 
+// 
+// getFitness
+//  Calcula y retorna el fitness del individuo en función del número de 
+//  que gasta o consume. Se combina además con el promedio de tiempo de
+//  descanso de todo el servicio
+float Phenotype::getFitness() {
+	return 0.0f;
+}
+
+// 
+// 
+// _push
+//  Busca un servicio dentro de vector de servicios donde quepa el Trip
+//  entrante, si no cabe en ninguno, crea un nuevo servicio y lo apila ahi
+void Phenotype::_push(int daTrip) {
+	int i;
+
+	for(i = 0; i < services.size(); i++) {
+		if(services.at(i).push(daTrip))
+			return;
+	}
+	// Entonces no cupo en ninguno entonces se agrega uno nuevo
+	Service newService;
+	newService.id = services.size();
+	services.push_back(newService);
+	services.back().push(daTrip);
 }

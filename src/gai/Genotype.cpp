@@ -15,10 +15,16 @@
 
 using namespace std;
 
+int currentDude = 0;
+int currentGen = 0;
+int popSize = 500;
+int cantGen = 500;
+
 float PROGRESS = 0.0f;
-float GPROGRESS = 0.0f;
+float GPROGRESS = popSize * cantGen;
 ofstream * sfy;
 int sfyCount = 0;
+float * bestOfAllTimes;
 
 // 
 // 
@@ -40,8 +46,14 @@ float Genotype::evaluator(GAGenome & dude) {
 	PROGRESS += 1 / GPROGRESS;
 	printf("\rEvolucionando %.0f%%", PROGRESS * 100);
 
-	*sfy << ++sfyCount << ";" << fit << ";\n";
 
+	currentGen = currentDude / popSize;
+	if(fit < bestOfAllTimes[currentGen])
+		bestOfAllTimes[currentGen] = fit;
+
+	// *sfy << ++sfyCount << ";" << fit << ";\n";
+
+	currentDude++;
 	return 1/fit;
 }
 
@@ -59,14 +71,14 @@ void Genotype::main() {
 	// Preparando el archivo de registro de fitness
 	sfy = new ofstream("etc/output.csv");
 
-	// Lanzamiento del algoritmo genético
 	cout << "Configurando el GAlib" << endl;
-	int popSize = 500
-	  , genCant = 5;
-	GPROGRESS = popSize * genCant;
+	
+	bestOfAllTimes = (float *) malloc(sizeof(float) * cantGen);
+	for(int i = 0; i < cantGen; i++) bestOfAllTimes[i] = 10000.0;
+
 	GASimpleGA ga(genoma);
 	ga.populationSize(popSize);
-	ga.nGenerations(genCant);
+	ga.nGenerations(cantGen);
 	ga.pMutation(0.03);
 	ga.pCrossover(0.90);
 	ga.evolve(); // Launch
@@ -81,4 +93,7 @@ void Genotype::main() {
 	
 	ofstream fout("www/js/rawData.js");
 	fout << fwladi;
+
+	for(int i = 0; i < cantGen; i++)
+		*sfy << i << ";" << bestOfAllTimes[i] << ";" << endl;
 }

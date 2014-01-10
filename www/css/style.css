@@ -6060,14 +6060,14 @@ form .poll-options .description {
 }
 #services .service {
   width: 100%;
-  line-height: 50px;
+  line-height: 20px;
 }
 #services .service .block {
   display: inline-block;
-  height: 50px;
+  height: 20px;
   border: 1px dotted #FF7171;
   text-align: center;
-  line-height: 50px;
+  line-height: 20px;
   font-size: 13px;
   vertical-align: bottom;
   display: none;
@@ -6077,5 +6077,5 @@ form .poll-options .description {
 }
 #services .service .offset {
   display: inline-block;
-  height: 50px;
+  height: 20px;
 }

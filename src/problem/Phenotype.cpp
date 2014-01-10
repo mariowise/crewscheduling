@@ -49,7 +49,21 @@ void Phenotype::init(string genotype) {
 //  que gasta o consume. Se combina además con el promedio de tiempo de
 //  descanso de todo el servicio
 float Phenotype::getFitness() {
-	return 0.0f;
+	int cs = services.size();
+	float ls = 0.0f;
+
+	// Se calcula el tiempo promedio de ocio de todos los servicios del 
+	// fenotipo
+	for(int i = 0; i < services.size(); i++)
+		ls += services.at(i).timeLeisure.toSeg() / 
+				(float) services.size();
+	ls = ls / (float) 60;
+
+	// Se prioriza el número de servicios en la normalización
+	cs = cs * 0.8;
+	ls = ls * 0.2;
+
+	return cs + ls;
 }
 
 // 

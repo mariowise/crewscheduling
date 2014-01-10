@@ -30,20 +30,21 @@ map<string, DateTime> generalIntervals;
 int main(int argc, char * argv[]) {	
 	Reader rd;
 	rd.readFile("etc/EntradaPrototipe.txt");
-	// cout << "Lectura del archivo realizada (" << trips.size() << ")" << endl;
+	cout << "Lectura del archivo realizada (" << trips.size() << ")" << endl;
 
-	// Genotype::main();
+	Genotype::main();
 
-	string randomDude;
-	for(int i = 0; i < trips.size(); i++)
-		randomDude += (i % 2 == 0) ? '1':'0';
+	// string randomDude;
+	// for(int i = 0; i < trips.size(); i++)
+	// 	randomDude += (i % 2 == 0) ? '1':'0';
 
-	Phenotype ph;
-	ph.init(randomDude);
+	// Phenotype ph;
+	// ph.init(randomDude);
+	// cout << "fitness: " << ph.getFitness() << endl;
 
 
-	ofstream fout("www/js/rawData.js");
-	fout << ph;
+	// ofstream fout("www/js/rawData.js");
+	// fout << ph;
 
 	return 0;
 }

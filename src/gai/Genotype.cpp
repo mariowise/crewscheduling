@@ -2,6 +2,7 @@
 #include <sstream>
 #include <ctime>
 #include <string>
+#include <cstdio>
 #include <unistd.h>
 
 #include <ga/GA1DBinStrGenome.h>
@@ -14,6 +15,10 @@
 
 using namespace std;
 
+float PROGRESS = 0.0f;
+float GPROGRESS = 0.0f;
+ofstream * sfy;
+int sfyCount = 0;
 
 // 
 // 
@@ -31,6 +36,12 @@ float Genotype::evaluator(GAGenome & dude) {
 	Phenotype p;
 	p.init(genome);
 	float fit = p.getFitness();
+
+	PROGRESS += 1 / GPROGRESS;
+	printf("\rEvolucionando %.0f%%", PROGRESS * 100);
+
+	*sfy << ++sfyCount << ";" << fit << ";\n";
+
 	return 1/fit;
 }
 
@@ -45,13 +56,19 @@ void Genotype::main() {
 	cout << "Creando prototipo para Genoma (" << trips.size() << ")" << endl;
 	GA1DBinaryStringGenome genoma(trips.size(), Genotype::evaluator);
 
+	// Preparando el archivo de registro de fitness
+	sfy = new ofstream("etc/output.csv");
+
 	// Lanzamiento del algoritmo genético
 	cout << "Configurando el GAlib" << endl;
+	int popSize = 500
+	  , genCant = 5;
+	GPROGRESS = popSize * genCant;
 	GASimpleGA ga(genoma);
-	ga.populationSize(500);
-	ga.nGenerations(1000);
-	ga.pMutation(0.01);
-	ga.pCrossover(0.9);
+	ga.populationSize(popSize);
+	ga.nGenerations(genCant);
+	ga.pMutation(0.03);
+	ga.pCrossover(0.90);
 	ga.evolve(); // Launch
 
 	ostringstream wladi;
@@ -60,6 +77,8 @@ void Genotype::main() {
 	Phenotype fwladi;
 	fwladi.init(wladi.str());
 
-	cout << "\nThe GA found: (" << fwladi.getFitness() << ")" << wladi.str() << "\n";	
-	cout << fwladi << endl;
+	cout << "\nThe GA found: (" << fwladi.getFitness() << ")\n";	
+	
+	ofstream fout("www/js/rawData.js");
+	fout << fwladi;
 }

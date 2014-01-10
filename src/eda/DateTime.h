@@ -9,7 +9,7 @@ public:
 	int h;
 	int m;
 
-	DateTime() {}
+	DateTime() : h(0), m(0) {}
 	DateTime(std::string sf) {
 		int i = sf.find(":", 0);
 		std::string _h = sf.substr(0, sf.length() - i-1);

@@ -14,16 +14,13 @@
 using namespace std;
 
 std::ostream & operator<<(std::ostream & os, const Phenotype & phenom) {
-	os << "-----------------------------------------------" << endl;
-	os << "--Phenotype------------------------------------" << endl;
-	os << "[";
+	os << "var rawData = [";
 	for(int i = 0; i < phenom.services.size(); i++) {
-		cout << phenom.services.at(i);
+		os << phenom.services.at(i);
 		if(i != phenom.services.size()-1) 
 			os << ", ";
 	}
 	os << " ]" << endl;
-	os << "-----------------------------------------------" << endl;
 }
 
 // 
@@ -35,19 +32,14 @@ void Phenotype::init(string genotype) {
 	int i;
 	// A por los 1
 	for(i = 0; i < genotype.size(); i++) {
-		if(genotype.at(i) == '1') {
-			_push(i);
-			cout << i << " ";
-		}
+		if(genotype.at(i) == '1')
+			_push(i);		
 	}
 	// A por los 0
 	for(i = 0; i < genotype.size(); i++) {
-		if(genotype.at(i) == '0') {
-			_push(i);
-			cout << i << " ";
-		}
+		if(genotype.at(i) == '0')
+			_push(i);		
 	}
-	cout << endl;
 }
 
 // 

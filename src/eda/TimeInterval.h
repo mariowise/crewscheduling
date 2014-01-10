@@ -11,6 +11,8 @@ public:
 	std::string type;
 	DateTime initTime;
 	DateTime endTime;
+	DateTime cc;
+	DateTime c;
 	int fat;
 
 	TimeInterval() {}
@@ -20,9 +22,11 @@ public:
 		initTime = orig.initTime;
 		endTime = orig.endTime;
 		fat = orig.fat;
+		cc = orig.cc;
+		c = orig.c;
 	}
 	TimeInterval(int id, std::string type) : 
-		id(id), type(type), initTime(0, 0), endTime(0, 0) {};
+		id(id), type(type), initTime(0, 0), endTime(0, 0), cc(0, 0), c(0, 0) {};
 	TimeInterval(int id, std::string type, DateTime initTime, DateTime endTime, int fat) :
 		id(id), type(type), initTime(initTime), endTime(endTime), fat(fat) {};
 	TimeInterval(DateTime initTime, DateTime endTime) : 

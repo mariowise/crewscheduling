@@ -69,10 +69,22 @@ void Reader::readFile(const char * filename) {
 		}
 		if(line.compare("TRIP") == 0) {
 			getline(f, line);
+			int lid = 0;
 			while(!isPrivate(line)){
 				dataSep = split(line, "\t");
-				Trip t(atoi(dataSep.at(0).c_str()), dataSep.at(1), (DateTime) dataSep.at(2), atoi(dataSep.at(3).c_str()), (DateTime) dataSep.at(4), atoi(dataSep.at(5).c_str()));
-				trips.push_back(t);
+				// Trip t(atoi(dataSep.at(0).c_str()), 
+				Trip t(lid, 
+						dataSep.at(1), 
+						(DateTime) dataSep.at(2), 
+						atoi(dataSep.at(3).c_str()), 
+						(DateTime) dataSep.at(4), 
+						atoi(dataSep.at(5).c_str())
+				);
+				// Filtro para Trips de verdad (Solo los mayores a 2.5 minutos)
+				if(t.length().toSeg() > 2.5 * 60) {
+					trips.push_back(t);
+					lid++;	
+				}
 
 				if(getline(f, line)==NULL)
 					break;			

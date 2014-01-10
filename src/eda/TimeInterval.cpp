@@ -9,6 +9,8 @@ ostream & operator<<(ostream & os, const TimeInterval & U) {
     	<< "initTime: " << U.initTime << ", "
     	<< "endTime: " << U.endTime << ", "
     	<< "offset: " << U.initTime.toSeg() << ", "
+    	<< "driving: " << U.c << ", "
+    	<< "continuousDriving: " << U.cc << ", "
     	<< "width: " << (U.endTime.toSeg() - U.initTime.toSeg()) << " }";
     return os;
 }

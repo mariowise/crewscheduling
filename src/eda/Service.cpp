@@ -67,6 +67,7 @@ bool Service::push(int daTrip) {
 	if(timeDriving >= generalIntervals["maxTimeDrivingBeforeLunch"]) {
 		hasLunch = true;
 		_push("Lunch", NULL); // Se inserta el Lunch
+		timeContinuosDriving = (DateTime) "0:0";
 	}
 
 	// ¿Acaso lleva demasiado tiempo conduciendo de forma continua?
@@ -88,6 +89,7 @@ bool Service::push(int daTrip) {
 		return false;
 	// El Trip entrante si esta a la derecha
 
+
 	/////////////////////////////////////////////////////////////////////
 	// Comienza rutina de apilado (Acá se agregará si o si )/////////////
 	/////////////////////////////////////////////////////////////////////
@@ -103,16 +105,21 @@ bool Service::push(int daTrip) {
 	// incrementar el tiempo de conducción y el tiempo de conducción
 	// continua. Si el bloque anterior != "Fat" entonces quiere decir
 	// que antes hay un Rest o un Leisure o un Lunch, entonces el tiempo
-	// de conducción continua vuelve a "0:0" (Resetea)
+	// de conducción continua vuelve a "0:0" (Resetea). De forma adicional
+	// habrá que comprobar que el Leisure no sea un tiempo muy pequeño
+	// en tal caso el tiempo de conducción continua volverá a cero cuando en
+	// realidad el leisure solo actúa como corrector pequeño. Entonces para
+	// lograr esto consideraremos como Fat aquellos Leisure demasiado pequeños
+	// Lo anterior ocurre en el ..::Proxy::.. _push, // Leisure
 	aux = candidate.length();
 	timeDriving = 
 		timeDriving + aux;
-	if(blocks.back().type.compare("Fat")) {
+	if(blocks.back().type.compare("Fat") == 0) {
 		aux = candidate.length();	
 		timeContinuosDriving = 
 			timeContinuosDriving + aux;
 	}
-	else
+	else 
 		timeContinuosDriving = (DateTime) "0:0";
 	_push("Trip", &candidate);
 	_push("Fat", NULL);
@@ -135,6 +142,8 @@ void Service::_push(string typeName, void * source) {
 		candidate.type = "Trip";
 		candidate.initTime = tr->initTime;
 		candidate.endTime = tr->endTime;
+		candidate.cc = timeContinuosDriving;
+		candidate.c = timeDriving;
 		blocks.push_back(candidate);
 		return;
 	}
@@ -167,6 +176,8 @@ void Service::_push(string typeName, void * source) {
 		candidate.type = "Leisure";
 		candidate.initTime = blocks.back().endTime;
 		candidate.endTime = *leend;
+		if(candidate.length().toSeg() < 20*60)
+			candidate.type = "Fat";
 		blocks.push_back(candidate);
 		return;
 	}
